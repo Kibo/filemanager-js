@@ -1,0 +1,84 @@
+{
+  "root": [
+    {
+      "key": "0",
+      "data": {
+        "name": "Documents",
+        "size": "75kb",
+        "type": "Folder"
+      },
+      "children": [
+        {
+          "key": "0-1",
+          "data": {
+            "name": "Home",
+            "size": "20kb",
+            "type": "Folder"
+          },
+          "children": [
+            {
+              "key": "0-1-0",
+              "data": {
+                "name": "Invoices.txt",
+                "size": "20kb",
+                "type": "Text"
+              }
+            },
+            {
+              "key": "0-1-1",
+              "data": {
+                "name": "pic1.jpg",
+                "size": "20kb",
+                "type": "Image"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "1",
+      "data": {
+        "name": "Documents2",
+        "size": "100kb",
+        "type": "Folder"
+      },
+      "children": [
+        {
+          "key": "1-1",
+          "data": {
+            "name": "Home",
+            "size": "20kb",
+            "type": "Folder"
+          },
+          "children": [
+            {
+              "key": "1-1-0",
+              "data": {
+                "name": "AInvoices.txt",
+                "size": "20kb",
+                "type": "Text"
+              }
+            },
+            {
+              "key": "1-1-1",
+              "data": {
+                "name": "Bpic1.jpg",
+                "size": "20kb",
+                "type": "Image"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "2",
+      "data": {
+        "name": "pic1.jpg",
+        "size": "20kb",
+        "type": "Image"
+      }
+    }
+  ]
+}

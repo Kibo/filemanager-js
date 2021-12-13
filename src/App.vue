@@ -1,27 +1,31 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js + TypeScript App"/>
+  <Filemanager />
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
-import HelloWorld from './components/HelloWorld.vue';
+import "/node_modules/primevue/resources/themes/saga-blue/theme.css";
+import "/node_modules/primevue/resources/primevue.min.css";
+import "/node_modules/primeflex/primeflex.css";
+import "/node_modules/primeicons/primeicons.css";
 
-export default defineComponent({
-  name: 'App',
+import { defineAsyncComponent } from "vue";
+import Filemanager from "./components/Filemanager.vue";
+
+export default {
+  name: "App",
   components: {
-    HelloWorld
-  }
-});
+    Filemanager,
+  },
+  props: [],
+  data() {
+    return {};
+  },
+  computed: {},
+  methods: {},
+};
 </script>
 
 <style lang="less">
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
 }
 </style>
