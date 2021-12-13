@@ -1,6 +1,6 @@
 # Filemanager-js
 
-The JavaScript filemanager for CKEditor, Quill, TinyMCE.
+The Filemanager for CKEditor, Quill, TinyMCE.
 
 ## Project setup
 
