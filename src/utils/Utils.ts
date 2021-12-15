@@ -55,17 +55,21 @@ const Utils = {
    * @param {INode} node
    * @return {[INode]}
    */
-  getParents(nodes: INode[], node: INode): INode[] {
-    const parents: INode[] = [];
+  getPath(nodes: INode[], node: INode): INode[] {
+    if (!node) {
+      return [];
+    }
+
+    const parents: INode[] = [node];
 
     let lookup = function (list: INode[], child: INode) {
-      if (list.includes(child)) {
+      if (isInArray(list, child?.key)) {
         return;
       }
 
       for (const n of list) {
         if (n?.children?.length) {
-          if (n.children.includes(child)) {
+          if (isInArray(n.children, child?.key)) {
             parents.push(n);
             lookup(nodes, n);
             break;
@@ -80,5 +84,22 @@ const Utils = {
     return parents.reverse();
   },
 };
+
+/*
+ * Check if object with ID is in array
+ *
+ * @param {Array} arr
+ * @param {string} key
+ * @return {boolean}
+ */
+function isInArray(arr: INode[], key: string): boolean {
+  for (const obj of arr) {
+    if (obj.key == key) {
+      return true;
+      break;
+    }
+  }
+  return false;
+}
 
 export default Utils;

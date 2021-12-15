@@ -40,39 +40,43 @@ describe("findNodeByKey(node)", () => {
   });
 });
 
-describe("getParent(nodes, node)", () => {
-  it("it returns parent of node", () => {
+describe("getPath(nodes, node)", () => {
+  it("it returns path to root node", () => {
     let nodeKey, parentKey, node, parents;
 
     nodeKey = "0";
     node = Utils.findNodeByKey(filesystem.root, nodeKey);
-    parents = Utils.getParents(filesystem.root, node);
-    expect(parents).toEqual([]);
-
-    nodeKey = "0-1";
-    node = Utils.findNodeByKey(filesystem.root, nodeKey);
-    parents = Utils.getParents(filesystem.root, node);
+    parents = Utils.getPath(filesystem.root, node);
     expect(parents.length).toBe(1);
     expect(parents[0].key).toBe("0");
 
+    nodeKey = "0-1";
+    node = Utils.findNodeByKey(filesystem.root, nodeKey);
+    parents = Utils.getPath(filesystem.root, node);
+    expect(parents.length).toBe(2);
+    expect(parents[0].key).toBe("0");
+    expect(parents[1].key).toBe("0-1");
+
     nodeKey = "0-1-1";
     node = Utils.findNodeByKey(filesystem.root, nodeKey);
-    parents = Utils.getParents(filesystem.root, node);
-    expect(parents.length).toBe(2);
-    expect(parents[1].key).toBe("0-1");
+    parents = Utils.getPath(filesystem.root, node);
+    expect(parents.length).toBe(3);
     expect(parents[0].key).toBe("0");
+    expect(parents[1].key).toBe("0-1");
+    expect(parents[2].key).toBe("0-1-1");
 
     nodeKey = "3-1-0-0";
     node = Utils.findNodeByKey(filesystem.root, nodeKey);
-    parents = Utils.getParents(filesystem.root, node);
-    expect(parents.length).toBe(3);
-    expect(parents[2].key).toBe("3-1-0");
-    expect(parents[1].key).toBe("3-1");
+    parents = Utils.getPath(filesystem.root, node);
+    expect(parents.length).toBe(4);
     expect(parents[0].key).toBe("3");
+    expect(parents[1].key).toBe("3-1");
+    expect(parents[2].key).toBe("3-1-0");
+    expect(parents[3].key).toBe("3-1-0-0");
 
     nodeKey = "undefined-key";
     node = Utils.findNodeByKey(filesystem.root, nodeKey);
-    parents = Utils.getParents(filesystem.root, node);
+    parents = Utils.getPath(filesystem.root, node);
     expect(parents).toEqual([]);
   });
 });

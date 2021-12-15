@@ -8,6 +8,7 @@
         class="p-button-success"
         @click="setRootNode()"
       />
+      {{ path.join(" > ") }}
     </template>
 
     <template #end>
@@ -137,7 +138,7 @@ export default {
   },
   watch: {
     selectedNode(node: INode) {
-      this.path = node ? Utils.getParents(this.nodes, node) : [];
+      this.path = node ? Utils.getPath(this.nodes, node) : [];
     },
   },
   mounted() {},
