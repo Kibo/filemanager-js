@@ -9,16 +9,16 @@ const Utils = {
    * @param {INodes[]} nodes
    * @return {INodes[]} dirs only
    */
-  getDirsFromTree(nodes: INode[]) {
-    return nodes;
-    /*
-    return nodes.filter((node: INode) => {
+  getDirsFromTree(nodes: INode[]): INode[] {
+    let tree: INode[] = JSON.parse(JSON.stringify(nodes));
+
+    for (const node of tree) {
       if (node?.children?.length) {
         node.children = Utils.getDirsFromTree(node.children);
       }
-      return node?.data?.type == Utils.TYPE_FOLDER;
-    });
-    */
+    }
+
+    return tree.filter((n) => n?.data?.type == Utils.TYPE_FOLDER);
   },
 
   /**
@@ -31,18 +31,20 @@ const Utils = {
   findNodeByKey(nodes: INode[], key: string): INode {
     let result: any;
 
-    let look = function (list: INode[], id: string) {
+    let lookup = function (list: INode[], id: string) {
       for (const n of list) {
         if (n.key == id) {
           result = n;
           break;
-        } else if (n?.children?.length) {
-          look(n.children, id);
+        }
+
+        if (n?.children?.length) {
+          lookup(n.children, id);
         }
       }
     };
 
-    look(nodes, key);
+    lookup(nodes, key);
     return result;
   },
 
@@ -56,22 +58,26 @@ const Utils = {
   getParents(nodes: INode[], node: INode): INode[] {
     const parents: INode[] = [];
 
-    let look = function (list: INode[], child: INode) {
-      for (var i = 0; i < list.length; i++) {
-        let item = list[i];
+    let lookup = function (list: INode[], child: INode) {
+      if (list.includes(child)) {
+        return;
+      }
 
-        if (item == child) {
-          parents.push(item);
-          look(list, item);
-          break;
-        } else if (item.children) {
-          look(item.children, child);
+      for (const n of list) {
+        if (n?.children?.length) {
+          if (n.children.includes(child)) {
+            parents.push(n);
+            lookup(nodes, n);
+            break;
+          } else {
+            lookup(n.children, child);
+          }
         }
       }
     };
 
-    look(nodes, node);
-    return parents;
+    lookup(nodes, node);
+    return parents.reverse();
   },
 };
 
