@@ -3,12 +3,7 @@
 
   <Toolbar>
     <template #start>
-      <Button
-        icon="pi pi-home"
-        class="p-button-success"
-        @click="setRootNode()"
-      />
-      {{ path.join(" > ") }}
+      <Breadcrumb :path="path" @onSelect="onNodeSelect" />
     </template>
 
     <template #end>
@@ -98,6 +93,7 @@ import SplitterPanel from "primevue/splitterpanel";
 import Column from "primevue/column";
 import TreeTable from "primevue/treetable";
 import FileUpload from "primevue/fileupload";
+import Breadcrumb from "./Breadcrumb.vue";
 
 import Utils from "../utils/Utils";
 
@@ -114,12 +110,14 @@ export default {
     Column,
     TreeTable,
     FileUpload,
+    Breadcrumb,
   },
   props: [],
   data() {
     return {
       nodes: filesystem.root as INode[],
       selectedNode: undefined,
+      activeDir: undefined,
       path: [],
     };
   },
@@ -128,12 +126,7 @@ export default {
       return Utils.getDirsFromTree(this.nodes);
     },
     dir() {
-      if (!this.selectedNode) {
-        return this.nodes;
-      }
-      return this.selectedNode?.data?.type == Utils.TYPE_FOLDER
-        ? this.selectedNode.children
-        : this.nodes;
+      return this.activeDir ? this.activeDir.children : this.nodes;
     },
   },
   watch: {
@@ -145,18 +138,27 @@ export default {
   methods: {
     onNodeSelect(node: INode) {
       this.setSelectedNode(node);
-      this.$toast.add({
-        severity: "success",
-        summary: "Node Selected",
-        detail: node.data.name,
-        life: 3000,
-      });
+      node &&
+        this.$toast.add({
+          severity: "success",
+          summary: "Node Selected",
+          detail: node.data.name,
+          life: 3000,
+        });
     },
-    setRootNode() {
-      this.setSelectedNode(undefined);
-    },
+
     setSelectedNode(node: INode) {
-      this.selectedNode = node;
+      if (!node) {
+        this.selectedNode = undefined;
+        this.activeDir = undefined;
+        return;
+      }
+
+      this.selectedNode = Utils.findNodeByKey(this.nodes, node.key);
+
+      if (this.selectedNode?.data?.type == Utils.TYPE_FOLDER) {
+        this.activeDir = this.selectedNode;
+      }
     },
   },
 };
