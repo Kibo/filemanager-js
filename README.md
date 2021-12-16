@@ -27,7 +27,7 @@ The Filemanager for CKEditor, Quill, TinyMCE.
 ## How to
 
 1. Create API on your backed server (filesystem, S3, Dropbox, GDisk, ...)
-2. Connect Filemanager to your API ( [store](/store/index.ts) )
+2. Connect Filemanager to your API ( [store](/src/store/index.ts) )
 3. Build Filemanager
 4. Connect Filemanger to your prefered WYSIWIG editor. For instance CKEditor.
 
