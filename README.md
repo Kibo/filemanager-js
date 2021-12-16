@@ -2,6 +2,22 @@
 
 The Filemanager for CKEditor, Quill, TinyMCE.
 
+![Filemanager](/public/screens/screen1.png)
+
+## Commands
+
+- Uploads file or multiple files
+- Create Dir
+- Select path
+- Rename
+- Delete
+
+## Properties
+
+- One panel
+- Breadcrumb
+- Sorting by name/ size/ type
+
 ## Project setup
 
 ```
