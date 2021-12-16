@@ -21,7 +21,7 @@ The Filemanager for CKEditor, Quill, TinyMCE.
 
 ## Node type
 
-- [INoder](/src/types/index.ts)
+- [TypeScript INoder](/src/types/index.ts)
 - [filesystem.json](/src/data/filesystem.json)
 
 ## Project setup
