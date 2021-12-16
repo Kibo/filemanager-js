@@ -1,7 +1,7 @@
 <template>
   <Button
     icon="pi pi-home"
-    class="p-button-success p-button-sm mr-1"
+    class="p-button-success p-button-sm mr-1 mb-1"
     @click="nodeSelected(null)"
   />
 
