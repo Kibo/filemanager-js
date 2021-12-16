@@ -15,8 +15,14 @@ The Filemanager for CKEditor, Quill, TinyMCE.
 ### Properties
 
 - One panel
-- Breadcrumb
+- Active breadcrumb
 - Sorting by name/ size/ type
+- Responsive layout
+
+## Node type
+
+- [INoder](/src/types.index.ts)
+- [filesystem.json](/src/data/filesystem.json)
 
 ## Project setup
 

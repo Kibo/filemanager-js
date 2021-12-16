@@ -7,7 +7,7 @@
     <template #end>
       <Button
         icon="pi pi-window-minimize"
-        class="p-button-warning p-button-sm ml-1"
+        class="p-button-warning p-button-sm"
         title="Select"
         label="Select"
       />
@@ -30,6 +30,7 @@
     class="p-treetable-sm"
     sortMode="single"
     selectionMode="single"
+    responsiveLayout="scroll"
     @nodeSelect="onNodeSelect"
   >
     <Column
@@ -58,6 +59,7 @@
           icon="pi pi-pencil"
           class="p-button-info p-button-sm"
           title="Rename"
+          @click="doRename(node)"
         ></Button>
         <Button
           type="button"
@@ -82,8 +84,6 @@ import Breadcrumb from "./Breadcrumb.vue";
 
 import Utils from "../utils/Utils";
 
-import filesystem from "../data/filesystem.json";
-
 export default {
   name: "Filemanager",
   components: {
@@ -97,13 +97,15 @@ export default {
   props: [],
   data() {
     return {
-      nodes: filesystem.root as INode[],
       selectedNode: undefined,
       activeDir: undefined,
       path: [],
     };
   },
   computed: {
+    nodes() {
+      return this.$store.state.filesystem as INode[];
+    },
     dir() {
       return this.activeDir ? this.activeDir.children : this.nodes;
     },
@@ -131,6 +133,9 @@ export default {
       if (this.selectedNode?.data?.type == Utils.TYPE_FOLDER) {
         this.activeDir = this.selectedNode;
       }
+    },
+    doRename(node: INode) {
+      console.log(node);
     },
   },
 };
