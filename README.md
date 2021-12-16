@@ -7,17 +7,18 @@ The Filemanager for CKEditor, Quill, TinyMCE.
 ## Commands
 
 - **Select path**
-- **Uploads** file or multiple files
+- **Uploads**
 - **Create directory**
 - **Rename**
 - **Delete**
+- **Remove**
 
 ## Properties
 
-- One panel
+- Responsive layout
 - Active breadcrumb
 - Sorting by name/ size/ type
-- Responsive layout
+- Uploads multiple files
 
 ## Node type
 
@@ -26,10 +27,10 @@ The Filemanager for CKEditor, Quill, TinyMCE.
 
 ## How to
 
-1. Create API on your backed server (filesystem, S3, Dropbox, GDisk, ...)
-2. Connect Filemanager to your API ( [Vuex](/src/store/index.ts) )
-3. Build Filemanager
-4. Connect Filemanger to your prefered WYSIWIG editor. For instance CKEditor.
+1. Create an API on your backed server (filesystem, S3, Dropbox, GDisk, ...)
+2. Connect the Filemanager to your API ( [Vuex](/src/store/index.ts) )
+3. Build the Filemanager
+4. Setup the Filemanger for your prefered WYSIWIG editor. For instance CKEditor.
 
 ### CKEditor
 

@@ -1,5 +1,5 @@
 <template>
-  <Toolbar>
+  <Toolbar class="pr-1 py-1 bg-orange-600">
     <template #start>
       <Breadcrumb
         :path="path"
@@ -14,11 +14,6 @@
         class="p-button-warning p-button-sm"
         title="Select"
         label="Select"
-      />
-      <Button
-        icon="pi pi-folder"
-        class="p-button-primary p-button-sm ml-1"
-        label="Create Dir"
       />
     </template>
   </Toolbar>
@@ -53,19 +48,32 @@
       headerClass="bg-blue-100"
     ></Column>
     <Column headerClass="bg-blue-100 text-right" bodyClass="text-right">
-      <template #body>
+      <template #header>
+        <Button
+          icon="pi pi-cloud-download"
+          class="p-button-info p-button-sm"
+          title="Uploads"
+        />
+        <Button
+          icon="pi pi-folder"
+          class="p-button-success p-button-sm ml-1"
+          title="Create Dir"
+        />
+      </template>
+      <template #body="slotProps">
         <Button
           type="button"
           icon="pi pi-pencil"
-          class="p-button-info p-button-sm"
+          class="p-button-secondary p-button-sm"
           title="Rename"
-          @click.capture="doRename"
+          @click="doRename(slotProps?.node?.key)"
         ></Button>
         <Button
           type="button"
           icon="pi pi-trash"
           class="p-button-danger p-button-sm ml-1"
-          title="Delete"
+          title="Remove"
+          @click="doRemove(slotProps?.node?.key)"
         ></Button>
       </template>
     </Column>
@@ -126,8 +134,11 @@ export default {
       this.selectedKey = undefined;
       this.expandedKeys = {};
     },
-    doRename(evn: any) {
-      console.log(evn);
+    doRename(key: string) {
+      console.log(key);
+    },
+    doRemove(key: string) {
+      console.log(key);
     },
   },
 };

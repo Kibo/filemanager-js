@@ -1,13 +1,13 @@
 <template>
   <Button
     icon="pi pi-home"
-    class="p-button-success p-button-sm mr-1 mb-1"
+    class="p-button-link text-white px-0"
     @click="collapseAll"
   />
 
   <div v-for="node in path" :key="node.key">
-    <i class="pi pi-chevron-right text-300 text-xs mx-2"></i>
-    <Button class="p-button-link p-0" @click="nodeSelected(node)">
+    <i class="pi pi-chevron-right text-400 text-xs mx-1"></i>
+    <Button class="p-button-link p-0 text-white" @click="nodeSelected(node)">
       {{ node.data.name }}
     </Button>
   </div>
