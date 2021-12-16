@@ -2,7 +2,7 @@
   <Button
     icon="pi pi-home"
     class="p-button-success p-button-sm mr-1 mb-1"
-    @click="nodeSelected(null)"
+    @click="collapseAll"
   />
 
   <div v-for="node in path" :key="node.key">
@@ -21,8 +21,8 @@ import Button from "primevue/button";
 export default {
   name: "Breadcrumb",
   components: { Button },
-  emits: ["onSelect"],
-  props: ["path"],
+  emits: ["onSelect", "onCollapse"],
+  props: ["path", "expandedKeys"],
   data() {
     return {};
   },
@@ -32,6 +32,9 @@ export default {
   methods: {
     nodeSelected(node: INode) {
       this.$emit("onSelect", node);
+    },
+    collapseAll() {
+      this.$emit("onCollapse");
     },
   },
 };

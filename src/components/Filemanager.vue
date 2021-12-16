@@ -1,7 +1,11 @@
 <template>
   <Toolbar>
     <template #start>
-      <Breadcrumb :path="path" @onSelect="onNodeSelect" />
+      <Breadcrumb
+        :path="path"
+        @onSelect="onNodeSelect"
+        @onCollapse="onCollapseAll"
+      />
     </template>
 
     <template #end>
@@ -12,31 +16,28 @@
         label="Select"
       />
       <Button
-        icon="pi pi-cloud-download"
-        class="p-button-primary p-button-sm ml-1"
-        label="Uploads"
-        title="Uploads"
-      />
-      <Button
         icon="pi pi-folder"
-        class="p-button-success p-button-sm ml-1"
+        class="p-button-primary p-button-sm ml-1"
         label="Create Dir"
       />
     </template>
   </Toolbar>
 
   <TreeTable
-    :value="dir"
+    :value="nodes"
     class="p-treetable-sm"
     sortMode="single"
     selectionMode="single"
     responsiveLayout="scroll"
-    @nodeSelect="onNodeSelect"
+    @node-select="onNodeSelect"
+    v-model:selectionKeys="selectedKey"
+    :expandedKeys="expandedKeys"
   >
     <Column
       field="name"
       header="Name"
       :sortable="true"
+      :expander="true"
       headerClass="bg-blue-100"
     ></Column>
     <Column
@@ -51,7 +52,6 @@
       :sortable="true"
       headerClass="bg-blue-100"
     ></Column>
-
     <Column headerClass="bg-blue-100 text-right" bodyClass="text-right">
       <template #body>
         <Button
@@ -59,7 +59,7 @@
           icon="pi pi-pencil"
           class="p-button-info p-button-sm"
           title="Rename"
-          @click="doRename(node)"
+          @click.capture="doRename"
         ></Button>
         <Button
           type="button"
@@ -77,6 +77,7 @@ import { INode } from "../types";
 import { defineAsyncComponent } from "vue";
 import Toolbar from "primevue/toolbar";
 import Button from "primevue/button";
+import SplitButton from "primevue/splitbutton";
 import Column from "primevue/column";
 import TreeTable from "primevue/treetable";
 import FileUpload from "primevue/fileupload";
@@ -89,6 +90,7 @@ export default {
   components: {
     Toolbar,
     Button,
+    SplitButton,
     Column,
     TreeTable,
     FileUpload,
@@ -98,16 +100,14 @@ export default {
   data() {
     return {
       selectedNode: undefined,
-      activeDir: undefined,
+      selectedKey: undefined,
+      expandedKeys: {},
       path: [],
     };
   },
   computed: {
     nodes() {
       return this.$store.state.filesystem as INode[];
-    },
-    dir() {
-      return this.activeDir ? this.activeDir.children : this.nodes;
     },
   },
   watch: {
@@ -118,24 +118,16 @@ export default {
   mounted() {},
   methods: {
     onNodeSelect(node: INode) {
-      this.setSelectedNode(node);
-    },
-
-    setSelectedNode(node: INode) {
-      if (!node) {
-        this.selectedNode = undefined;
-        this.activeDir = undefined;
-        return;
-      }
-
+      this.selectedKey = { [node.key]: true };
       this.selectedNode = node;
-
-      if (this.selectedNode?.data?.type == Utils.TYPE_FOLDER) {
-        this.activeDir = this.selectedNode;
-      }
     },
-    doRename(node: INode) {
-      console.log(node);
+    onCollapseAll() {
+      this.selectedNode = undefined;
+      this.selectedKey = undefined;
+      this.expandedKeys = {};
+    },
+    doRename(evn: any) {
+      console.log(evn);
     },
   },
 };

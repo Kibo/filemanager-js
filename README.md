@@ -24,6 +24,17 @@ The Filemanager for CKEditor, Quill, TinyMCE.
 - [TypeScript INoder](/src/types/index.ts)
 - [filesystem.json](/src/data/filesystem.json)
 
+## How to
+
+1. Create API on your backed server
+2. Connect Filemanager to your API ( [store](/store/index.ts) )
+3. Build Filemanager
+4. Connect Filemanger to your prefered WYSIWIG editor. For instance CKEditor.
+
+### CKEditor
+
+- todo
+
 ## Project setup
 
 ```
