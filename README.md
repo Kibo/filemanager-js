@@ -4,7 +4,7 @@ The Filemanager for CKEditor, Quill, TinyMCE.
 
 ![Filemanager](/public/screens/screen1.png)
 
-## Commands
+### Commands
 
 - Uploads file or multiple files
 - Create Dir
@@ -12,7 +12,7 @@ The Filemanager for CKEditor, Quill, TinyMCE.
 - Rename
 - Delete
 
-## Properties
+### Properties
 
 - One panel
 - Breadcrumb
