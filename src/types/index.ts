@@ -6,4 +6,5 @@ export interface INode {
     type: string;
   };
   children?: INode[];
+  leaf: boolean;
 }

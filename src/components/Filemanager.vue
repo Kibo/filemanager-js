@@ -24,9 +24,12 @@
     sortMode="single"
     selectionMode="single"
     responsiveLayout="scroll"
-    @node-select="onNodeSelect"
+    :loading="loading"
+    :lazy="true"
     v-model:selectionKeys="selectedKey"
     :expandedKeys="expandedKeys"
+    @node-select="onNodeSelect"
+    @nodeExpand="onExpand"
   >
     <Column
       field="name"
@@ -66,14 +69,12 @@
           icon="pi pi-pencil"
           class="p-button-secondary p-button-sm"
           title="Rename"
-          @click="doRename(slotProps?.node?.key)"
         ></Button>
         <Button
           type="button"
           icon="pi pi-trash"
           class="p-button-danger p-button-sm ml-1"
           title="Remove"
-          @click="doRemove(slotProps?.node?.key)"
         ></Button>
       </template>
     </Column>
@@ -111,6 +112,7 @@ export default {
       selectedKey: undefined,
       expandedKeys: {},
       path: [],
+      loading: true,
     };
   },
   computed: {
@@ -123,7 +125,11 @@ export default {
       this.path = node ? Utils.getPath(this.nodes, node) : [];
     },
   },
-  mounted() {},
+  async mounted() {
+    this.loading = true;
+    await this.$store.dispatch("updateFilesystem");
+    this.loading = false;
+  },
   methods: {
     onNodeSelect(node: INode) {
       this.selectedKey = { [node.key]: true };
@@ -139,6 +145,11 @@ export default {
     },
     doRemove(key: string) {
       console.log(key);
+    },
+    async onExpand(node: INode) {
+      this.loading = true;
+      await this.$store.dispatch("updateFilesystem", node);
+      this.loading = false;
     },
   },
 };
