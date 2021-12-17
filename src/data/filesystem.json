@@ -7,7 +7,6 @@
         "size": "75kb",
         "type": "Folder"
       },
-      "children": [],
       "leaf": false
     },
     {
@@ -17,7 +16,6 @@
         "size": "100kb",
         "type": "Folder"
       },
-      "children": [],
       "leaf": false
     },
     {
@@ -38,7 +36,6 @@
         "size": "100kb",
         "type": "Folder"
       },
-      "children": [],
       "leaf": false
     }
   ],
@@ -50,7 +47,6 @@
         "size": "0kb",
         "type": "Folder"
       },
-      "children": [],
       "leaf": false
     },
     {
@@ -72,6 +68,7 @@
       "leaf": true
     }
   ],
+  "0-1-0": [],
   "1": [
     {
       "key": "1-1",
@@ -80,7 +77,6 @@
         "size": "100kb",
         "type": "Folder"
       },
-      "children": [],
       "leaf": false
     }
   ],

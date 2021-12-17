@@ -19,6 +19,9 @@ export default createStore({
       let dir = Utils.findNodeByKey(state.filesystem, node?.key);
       dir.children = await list(node);
     },
+    async rename({ commit, state }, node: INode) {
+      console.log(node?.data?.name);
+    },
   },
   modules: {},
 });

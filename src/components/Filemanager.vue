@@ -68,12 +68,14 @@
           type="button"
           icon="pi pi-pencil"
           class="p-button-secondary p-button-sm"
+          @click="doRename(slotProps.node.key)"
           title="Rename"
         ></Button>
         <Button
           type="button"
           icon="pi pi-trash"
           class="p-button-danger p-button-sm ml-1"
+          @click="doRemove(slotProps.node.key)"
           title="Remove"
         ></Button>
       </template>
@@ -147,6 +149,9 @@ export default {
       console.log(key);
     },
     async onExpand(node: INode) {
+      if (Array.isArray(node?.children)) {
+        return;
+      }
       this.loading = true;
       await this.$store.dispatch("updateFilesystem", node);
       this.loading = false;
