@@ -4,9 +4,6 @@ import Utils from "../utils/Utils";
 import filesystem from "../data/filesystem.json";
 const branches: any = filesystem;
 
-// 0.5 sec
-const MOCK_FETCH_TIME = 500;
-
 export default createStore({
   state: {
     filesystem: [] as INode[],
@@ -26,12 +23,21 @@ export default createStore({
   modules: {},
 });
 
-// ###################################################################################
-// ## Mock backend API ###############################################################
-// #################################################################################
+// ######################################################################
+// ## Mock backend API - implement this API on your backend server    ##
+// ## AXIOS ( https://www.npmjs.com/package/vue-axios ) is prepared   ##
+// ######################################################################
+//
+// ######################################################################
+// ## This can be usefull:                                             ##
+// ## PATH_TO_NODE = Utils.getPath(this.$store.state.filesystem, node);##
+// ######################################################################
+
+// 0.5 sec
+const MOCK_FETCH_TIME = 500;
 
 /**
- * Get all files and directories from root of your backend server
+ * Get all Nodes
  *
  * @async
  * @param {INode | null} node - directory node with "children" property

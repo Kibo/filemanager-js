@@ -15,6 +15,7 @@ The Filemanager for CKEditor, Quill, TinyMCE.
 
 ## Properties
 
+- Lazy loading of directory content
 - Responsive layout
 - Active breadcrumb
 - Sorting by name/ size/ type
