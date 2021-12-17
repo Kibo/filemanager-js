@@ -75,17 +75,24 @@
           type="button"
           icon="pi pi-trash"
           class="p-button-danger p-button-sm ml-1"
-          @click="doRemove(slotProps.node.key)"
+          @click="onRemove(slotProps.node.key)"
           title="Remove"
         ></Button>
       </template>
     </Column>
   </TreeTable>
+  <RemoveDialog
+    :isVisible="isRemoveDialogVisible"
+    :node="selectedNode"
+    @onConfirm="doRemove"
+    @onClose="isRemoveDialogVisible = false"
+  />
 </template>
 
 <script lang="ts">
 import { INode } from "../types";
 import { defineAsyncComponent } from "vue";
+import Utils from "../utils/Utils";
 import Toolbar from "primevue/toolbar";
 import Button from "primevue/button";
 import SplitButton from "primevue/splitbutton";
@@ -93,8 +100,7 @@ import Column from "primevue/column";
 import TreeTable from "primevue/treetable";
 import FileUpload from "primevue/fileupload";
 import Breadcrumb from "./Breadcrumb.vue";
-
-import Utils from "../utils/Utils";
+import RemoveDialog from "./RemoveDialog.vue";
 
 export default {
   name: "Filemanager",
@@ -105,6 +111,7 @@ export default {
     Column,
     TreeTable,
     FileUpload,
+    RemoveDialog,
     Breadcrumb,
   },
   props: [],
@@ -115,6 +122,7 @@ export default {
       expandedKeys: {},
       path: [],
       loading: true,
+      isRemoveDialogVisible: false,
     };
   },
   computed: {
@@ -133,9 +141,12 @@ export default {
     this.loading = false;
   },
   methods: {
-    onNodeSelect(node: INode) {
+    selectNode(node: INode) {
       this.selectedKey = { [node.key]: true };
       this.selectedNode = node;
+    },
+    onNodeSelect(node: INode) {
+      this.selectNode(node);
     },
     onCollapseAll() {
       this.selectedNode = undefined;
@@ -145,8 +156,14 @@ export default {
     doRename(key: string) {
       console.log(key);
     },
-    doRemove(key: string) {
-      console.log(key);
+    onRemove(key: string) {
+      let node = Utils.findNodeByKey(this.nodes, key);
+      this.selectNode(node);
+      this.isRemoveDialogVisible = true;
+    },
+    doRemove() {
+      this.isRemoveDialogVisible = false;
+      console.log("Remove");
     },
     async onExpand(node: INode) {
       if (Array.isArray(node?.children)) {
