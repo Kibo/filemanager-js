@@ -165,7 +165,6 @@ export default {
     onRename(key: string) {
       let node = Utils.findNodeByKey(this.nodes, key);
       this.selectNode(node);
-      console.log(this.selectedNode);
       this.isRenameDialogVisible = true;
     },
     doRename(name: string) {

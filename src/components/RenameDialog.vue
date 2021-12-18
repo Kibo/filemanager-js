@@ -1,6 +1,11 @@
 <template>
   <template>
-    <Dialog v-model:visible="isVisible" :closable="false" :modal="true">
+    <Dialog
+      v-model:visible="isVisible"
+      :closable="false"
+      :modal="true"
+      @show="onShow"
+    >
       <div class="flex flex-row flex-wrap">
         <div class="flex align-items-center justify-content-center">
           <i class="pi pi-info-circle text-6xl text-primary mr-2"></i>
@@ -44,13 +49,17 @@ export default {
   props: ["node", "isVisible"],
   data() {
     return {
-      name: "abc",
+      name: "",
     };
   },
   computed: {},
   watch: {},
   mounted() {},
-  methods: {},
+  methods: {
+    onShow() {
+      this.name = this.node?.data?.name;
+    },
+  },
 };
 </script>
 
