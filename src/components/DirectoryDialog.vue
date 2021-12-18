@@ -14,7 +14,7 @@
           <h3 class="m-0 p-0">Create directory</h3>
         </div>
       </div>
-      <p>Path: {{ parents }}</p>
+      <p>Path: {{ parents }}/{{ name }}</p>
       <h5 class="mb-1">Directory name</h5>
       <InputText type="text" v-model="name" placeholder="new name" />
       <template #footer>
@@ -51,18 +51,22 @@ export default {
   props: ["path", "isVisible"],
   data() {
     return {
-      parents: undefined,
       name: "",
     };
   },
-  computed: {},
+  computed: {
+    parents() {
+      let parentsList: INode[] = this.path.map(
+        (node: INode) => node?.data?.name
+      );
+      return parentsList.length ? "/" + parentsList.join("/") : "";
+    },
+  },
   watch: {},
   mounted() {},
   methods: {
     onShow() {
-      this.parents = this.path as INode[];
       this.name = "";
-      console.log(this.path);
     },
     onConfirm() {
       if (this.name) {

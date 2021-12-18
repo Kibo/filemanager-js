@@ -100,6 +100,7 @@
     @onConfirm="doNewDirectory"
     @onClose="isDirectoryDialogVisible = false"
   />
+  <Toast position="top-center" />
 </template>
 
 <script lang="ts">
@@ -113,6 +114,7 @@ import Column from "primevue/column";
 import TreeTable from "primevue/treetable";
 import FileUpload from "primevue/fileupload";
 import Breadcrumb from "./Breadcrumb.vue";
+import Toast from "primevue/toast";
 import RemoveDialog from "./RemoveDialog.vue";
 import RenameDialog from "./RenameDialog.vue";
 import DirectoryDialog from "./DirectoryDialog.vue";
@@ -120,6 +122,7 @@ import DirectoryDialog from "./DirectoryDialog.vue";
 export default {
   name: "Filemanager",
   components: {
+    Toast,
     Breadcrumb,
     Toolbar,
     Button,
@@ -191,6 +194,18 @@ export default {
       console.log("Remove");
     },
     onNewDirectory() {
+      if (
+        this.selectedNode &&
+        this.selectedNode?.data?.type != Utils.TYPE_FOLDER
+      ) {
+        this.$toast.add({
+          severity: "error",
+          summary: "Error Message",
+          detail: "Selected node is not type of 'Folder'.",
+          life: 3000,
+        });
+        return;
+      }
       this.isDirectoryDialogVisible = true;
     },
     doNewDirectory(name: string) {
