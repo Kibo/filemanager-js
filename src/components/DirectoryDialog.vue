@@ -6,14 +6,16 @@
       :modal="true"
       @show="onShow"
     >
-      <div class="flex flex-row flex-wrap">
-        <div class="flex align-items-center justify-content-center">
-          <i class="pi pi-folder text-6xl text-primary mr-2"></i>
+      <template #header>
+        <div class="flex flex-row flex-wrap">
+          <div class="flex align-items-center justify-content-center">
+            <i class="pi pi-folder text-6xl text-primary mr-2"></i>
+          </div>
+          <div class="flex align-items-center justify-content-center">
+            <h3 class="m-0 p-0">Create directory</h3>
+          </div>
         </div>
-        <div class="flex align-items-center justify-content-center">
-          <h3 class="m-0 p-0">Create directory</h3>
-        </div>
-      </div>
+      </template>
       <p>Path: {{ parents }}/{{ name }}</p>
       <h5 class="mb-1">Directory name</h5>
       <InputText type="text" v-model="name" placeholder="new name" />
@@ -37,6 +39,7 @@
 </template>
 
 <script lang="ts">
+const path = require("path");
 import { INode } from "../types";
 import { defineAsyncComponent } from "vue";
 import Utils from "../utils/Utils";
@@ -45,7 +48,7 @@ import Dialog from "primevue/dialog";
 import InputText from "primevue/inputtext";
 
 export default {
-  name: "RenameDialog",
+  name: "DirectoryDialog",
   components: { Button, Dialog, InputText },
   emits: ["onConfirm", "onClose"],
   props: ["path", "isVisible"],
@@ -56,10 +59,10 @@ export default {
   },
   computed: {
     parents() {
-      let parentsList: INode[] = this.path.map(
+      let parentsList: string[] = this.path.map(
         (node: INode) => node?.data?.name
       );
-      return parentsList.length ? "/" + parentsList.join("/") : "";
+      return path.join(...parentsList);
     },
   },
   watch: {},

@@ -6,14 +6,16 @@
       :modal="true"
       @show="onShow"
     >
-      <div class="flex flex-row flex-wrap">
-        <div class="flex align-items-center justify-content-center">
-          <i class="pi pi-info-circle text-6xl text-primary mr-2"></i>
+      <template #header>
+        <div class="flex flex-row flex-wrap">
+          <div class="flex align-items-center justify-content-center">
+            <i class="pi pi-info-circle text-6xl text-primary mr-2"></i>
+          </div>
+          <div class="flex align-items-center justify-content-center">
+            <h3 class="m-0 p-0">Rename</h3>
+          </div>
         </div>
-        <div class="flex align-items-center justify-content-center">
-          <h3 class="m-0 p-0">Rename</h3>
-        </div>
-      </div>
+      </template>
       <h5 class="mb-1">New name</h5>
       <InputText type="text" v-model="name" placeholder="new name" />
       <template #footer>

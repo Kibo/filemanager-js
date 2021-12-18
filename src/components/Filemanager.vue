@@ -14,6 +14,7 @@
         class="p-button-warning p-button-sm"
         title="Select"
         label="Select"
+        @click="onSelect"
       />
     </template>
   </Toolbar>
@@ -56,6 +57,7 @@
           icon="pi pi-cloud-download"
           class="p-button-info p-button-sm"
           title="Uploads"
+          @click="onUploads"
         />
         <Button
           icon="pi pi-folder"
@@ -100,10 +102,16 @@
     @onConfirm="doNewDirectory"
     @onClose="isDirectoryDialogVisible = false"
   />
+  <UploadsDialog
+    :isVisible="isUploadsDialogVisible"
+    @onClose="isUploadsDialogVisible = false"
+    @onConfirm="doUploads"
+  />
   <Toast position="top-center" />
 </template>
 
 <script lang="ts">
+const path = require("path");
 import { INode } from "../types";
 import { defineAsyncComponent } from "vue";
 import Utils from "../utils/Utils";
@@ -112,12 +120,12 @@ import Button from "primevue/button";
 import SplitButton from "primevue/splitbutton";
 import Column from "primevue/column";
 import TreeTable from "primevue/treetable";
-import FileUpload from "primevue/fileupload";
 import Breadcrumb from "./Breadcrumb.vue";
 import Toast from "primevue/toast";
 import RemoveDialog from "./RemoveDialog.vue";
 import RenameDialog from "./RenameDialog.vue";
 import DirectoryDialog from "./DirectoryDialog.vue";
+import UploadsDialog from "./UploadsDialog.vue";
 
 export default {
   name: "Filemanager",
@@ -129,10 +137,10 @@ export default {
     SplitButton,
     Column,
     TreeTable,
-    FileUpload,
     RemoveDialog,
     RenameDialog,
     DirectoryDialog,
+    UploadsDialog,
   },
   props: [],
   data() {
@@ -145,6 +153,7 @@ export default {
       isRemoveDialogVisible: false,
       isRenameDialogVisible: false,
       isDirectoryDialogVisible: false,
+      isUploadsDialogVisible: false,
     };
   },
   computed: {
@@ -193,6 +202,25 @@ export default {
       this.isRemoveDialogVisible = false;
       console.log("Remove");
     },
+    onUploads() {
+      if (
+        this.selectedNode &&
+        this.selectedNode?.data?.type != Utils.TYPE_FOLDER
+      ) {
+        this.$toast.add({
+          severity: "error",
+          summary: "Error Message",
+          detail: "Selected node is not type of 'Folder'.",
+          life: 3000,
+        });
+        return;
+      }
+      this.isUploadsDialogVisible = true;
+    },
+    doUploads(files: any) {
+      this.isUploadsDialogVisible = false;
+      console.log(files);
+    },
     onNewDirectory() {
       if (
         this.selectedNode &&
@@ -220,8 +248,17 @@ export default {
       await this.$store.dispatch("updateFilesystem", node);
       this.loading = false;
     },
+    onSelect() {
+      let url: string[] = this.path.map((node: INode) => node?.data?.name);
+      console.log(path.join(...url));
+    },
   },
 };
 </script>
 
-<style lang="less"></style>
+<style lang="less">
+.p-dialog-header {
+  padding: 1em !important;
+  padding-bottom: 0 !important;
+}
+</style>

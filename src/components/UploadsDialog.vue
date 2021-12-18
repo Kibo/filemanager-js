@@ -1,30 +1,35 @@
 <template>
   <Dialog v-model:visible="isVisible" :closable="false" :modal="true">
     <template #header>
-      <div class="flex flex-row flex-wrap">
+      <div class="flex flex-row flex-wrap mb-3">
         <div class="flex align-items-center justify-content-center">
-          <i class="pi pi-exclamation-triangle text-6xl text-pink-600 mr-2"></i>
+          <i class="pi pi-cloud-download text-6xl text-primary mr-2"></i>
         </div>
         <div class="flex align-items-center justify-content-center">
-          <h3 class="m-0 p-0">Confirmation</h3>
+          <h3 class="m-0 p-0">Uploads</h3>
         </div>
       </div>
     </template>
 
-    <p>Do you want to delete {{ node.data.name }}?</p>
+    <FileUpload
+      name="demo[]"
+      :customUpload="true"
+      @uploader="uploader"
+      @upload="onUpload"
+      :multiple="true"
+      accept="image/*"
+    >
+      <template #empty>
+        <p>Drag and drop files to here to upload.</p>
+      </template>
+    </FileUpload>
+
     <template #footer>
       <Button
-        label="No"
+        label="Close"
         icon="pi pi-times"
         class="p-button-text"
         @click="this.$emit('onClose')"
-      />
-      <Button
-        label="Yes"
-        class="p-button-danger"
-        icon="pi pi-trash"
-        @click="this.$emit('onConfirm')"
-        autofocus
       />
     </template>
   </Dialog>
@@ -35,19 +40,31 @@ import { INode } from "../types";
 import { defineAsyncComponent } from "vue";
 import Button from "primevue/button";
 import Dialog from "primevue/dialog";
+import FileUpload from "primevue/fileupload";
 
 export default {
-  name: "RemoveDialog",
-  components: { Button, Dialog },
+  name: "UploadsDialog",
+  components: {
+    Button,
+    Dialog,
+    FileUpload,
+  },
   emits: ["onConfirm", "onClose"],
-  props: ["node", "isVisible"],
+  props: ["isVisible"],
   data() {
     return {};
   },
   computed: {},
   watch: {},
   mounted() {},
-  methods: {},
+  methods: {
+    onUpload() {
+      console.log("finish");
+    },
+    uploader(event: any) {
+      this.$emit("onConfirm", event.files);
+    },
+  },
 };
 </script>
 
