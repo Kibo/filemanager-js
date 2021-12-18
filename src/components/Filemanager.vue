@@ -68,7 +68,7 @@
           type="button"
           icon="pi pi-pencil"
           class="p-button-secondary p-button-sm"
-          @click="doRename(slotProps.node.key)"
+          @click="onRename(slotProps.node.key)"
           title="Rename"
         ></Button>
         <Button
@@ -87,6 +87,12 @@
     @onConfirm="doRemove"
     @onClose="isRemoveDialogVisible = false"
   />
+  <RenameDialog
+    :isVisible="isRenameDialogVisible"
+    :node="selectedNode"
+    @onConfirm="doRename"
+    @onClose="isRenameDialogVisible = false"
+  />
 </template>
 
 <script lang="ts">
@@ -101,10 +107,12 @@ import TreeTable from "primevue/treetable";
 import FileUpload from "primevue/fileupload";
 import Breadcrumb from "./Breadcrumb.vue";
 import RemoveDialog from "./RemoveDialog.vue";
+import RenameDialog from "./RenameDialog.vue";
 
 export default {
   name: "Filemanager",
   components: {
+    Breadcrumb,
     Toolbar,
     Button,
     SplitButton,
@@ -112,7 +120,7 @@ export default {
     TreeTable,
     FileUpload,
     RemoveDialog,
-    Breadcrumb,
+    RenameDialog,
   },
   props: [],
   data() {
@@ -123,6 +131,7 @@ export default {
       path: [],
       loading: true,
       isRemoveDialogVisible: false,
+      isRenameDialogVisible: false,
     };
   },
   computed: {
@@ -153,8 +162,15 @@ export default {
       this.selectedKey = undefined;
       this.expandedKeys = {};
     },
-    doRename(key: string) {
-      console.log(key);
+    onRename(key: string) {
+      let node = Utils.findNodeByKey(this.nodes, key);
+      this.selectNode(node);
+      console.log(this.selectedNode);
+      this.isRenameDialogVisible = true;
+    },
+    doRename(name: string) {
+      this.isRenameDialogVisible = false;
+      console.log(name);
     },
     onRemove(key: string) {
       let node = Utils.findNodeByKey(this.nodes, key);
