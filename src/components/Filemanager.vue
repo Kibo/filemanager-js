@@ -61,6 +61,7 @@
           icon="pi pi-folder"
           class="p-button-success p-button-sm ml-1"
           title="Create Dir"
+          @click="onNewDirectory"
         />
       </template>
       <template #body="slotProps">
@@ -93,6 +94,12 @@
     @onConfirm="doRename"
     @onClose="isRenameDialogVisible = false"
   />
+  <DirectoryDialog
+    :isVisible="isDirectoryDialogVisible"
+    :path="path"
+    @onConfirm="doNewDirectory"
+    @onClose="isDirectoryDialogVisible = false"
+  />
 </template>
 
 <script lang="ts">
@@ -108,6 +115,7 @@ import FileUpload from "primevue/fileupload";
 import Breadcrumb from "./Breadcrumb.vue";
 import RemoveDialog from "./RemoveDialog.vue";
 import RenameDialog from "./RenameDialog.vue";
+import DirectoryDialog from "./DirectoryDialog.vue";
 
 export default {
   name: "Filemanager",
@@ -121,6 +129,7 @@ export default {
     FileUpload,
     RemoveDialog,
     RenameDialog,
+    DirectoryDialog,
   },
   props: [],
   data() {
@@ -132,6 +141,7 @@ export default {
       loading: true,
       isRemoveDialogVisible: false,
       isRenameDialogVisible: false,
+      isDirectoryDialogVisible: false,
     };
   },
   computed: {
@@ -179,6 +189,13 @@ export default {
     doRemove() {
       this.isRemoveDialogVisible = false;
       console.log("Remove");
+    },
+    onNewDirectory() {
+      this.isDirectoryDialogVisible = true;
+    },
+    doNewDirectory(name: string) {
+      this.isDirectoryDialogVisible = false;
+      console.log(name);
     },
     async onExpand(node: INode) {
       if (Array.isArray(node?.children)) {
