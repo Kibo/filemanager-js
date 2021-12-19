@@ -191,7 +191,7 @@ export default {
     },
     doRename(name: string) {
       this.isRenameDialogVisible = false;
-      console.log(name);
+      this.$store.dispatch("rename", { node: this.selectedNode, name });
     },
     onRemove(key: string) {
       let node = Utils.findNodeByKey(this.nodes, key);
