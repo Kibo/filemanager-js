@@ -179,6 +179,11 @@ export default {
   },
   methods: {
     selectNode(node: INode) {
+      if (!node) {
+        this.selectedKey = undefined;
+        this.selectedNode = undefined;
+        return;
+      }
       this.selectedKey = { [node.key]: true };
       this.selectedNode = node;
     },
@@ -217,6 +222,7 @@ export default {
         this.sendError(err);
         return;
       }
+      this.selectNode(null);
     },
     onUploads() {
       if (

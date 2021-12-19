@@ -20,9 +20,8 @@ const MOCK_FETCH_TIME = 500;
 /**
  * Get all nodes from parent
  *
- * @throws {Error}
+ * @throws {Error} - throw Error when occurs
  * @param {INode | null} parent - directory node
- *
  * @return {[INode]}
  */
 export function list(parent?: INode): INode[] {
@@ -34,10 +33,9 @@ export function list(parent?: INode): INode[] {
 /**
  * Rename a node
  *
- * @throws {Error}
+ * @throws {Error} - throw Error when occurs
  * @param {INode} node - file or directory node
  * @param {string} name - new name
- *
  * @return {INode}
  */
 export function rename(node: INode, name: string): INode {
@@ -49,9 +47,8 @@ export function rename(node: INode, name: string): INode {
 /**
  * Remove a node
  *
- * @throws {Error}
+ * @throws {Error} - throw Error when occurs
  * @param {INode} node - file or directory node
- *
  * @return {INode} - deleted node
  */
 export function remove(nodes: INode[], node: INode): INode {
