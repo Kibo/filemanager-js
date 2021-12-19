@@ -4,28 +4,11 @@ const Utils = {
   TYPE_FOLDER: "Folder",
 
   /**
-   * Filter tree of INodes
-   *
-   * @param {INodes[]} nodes
-   * @return {INodes[]} dirs only
-   */
-  getDirsFromTree(nodes: INode[]): INode[] {
-    let tree: INode[] = JSON.parse(JSON.stringify(nodes));
-
-    for (const node of tree) {
-      if (node?.children?.length) {
-        node.children = Utils.getDirsFromTree(node.children);
-      }
-    }
-
-    return tree.filter((n) => n?.data?.type == Utils.TYPE_FOLDER);
-  },
-
-  /**
    * Find INode by key
    *
    * @param {[INode]} nodes
    * @param {String} key
+   *
    * @return {INode | undefined }
    */
   findNodeByKey(nodes: INode[], key: string): INode {
@@ -53,6 +36,7 @@ const Utils = {
    *
    * @param {[INode]} nodes
    * @param {INode} node
+   *
    * @return {[INode]}
    */
   getPath(nodes: INode[], node: INode): INode[] {
@@ -82,6 +66,38 @@ const Utils = {
 
     lookup(nodes, node);
     return parents.reverse();
+  },
+
+  /**
+   *  Remove node from list
+   *
+   * @param{[INode]} nodes
+   * @param{INode} node
+   */
+  removeNode(nodes: INode[], node: INode): void {
+    let lookup = function (list: INode[], child: INode) {
+      let idx = undefined;
+      for (const [k, val] of list.entries()) {
+        if (val.key == child?.key) {
+          idx = k;
+        }
+      }
+      if (idx) {
+        list.splice(idx, 1);
+        return;
+      }
+
+      for (const n of list) {
+        if (n?.children && isInArray(n.children, child?.key)) {
+          n.children = n.children.filter((n) => n.key != child.key);
+          break;
+        } else {
+          n?.children && lookup(n.children, node);
+        }
+      }
+    };
+
+    lookup(nodes, node);
   },
 };
 

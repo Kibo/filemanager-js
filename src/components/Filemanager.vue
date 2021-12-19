@@ -166,10 +166,16 @@ export default {
       this.path = node ? Utils.getPath(this.nodes, node) : [];
     },
   },
-  async mounted() {
+  mounted() {
     this.loading = true;
-    await this.$store.dispatch("updateFilesystem");
-    this.loading = false;
+    try {
+      this.$store.dispatch("updateFilesystem");
+    } catch (err) {
+      this.sendError(err);
+      return;
+    } finally {
+      this.loading = false;
+    }
   },
   methods: {
     selectNode(node: INode) {
@@ -191,7 +197,12 @@ export default {
     },
     doRename(name: string) {
       this.isRenameDialogVisible = false;
-      this.$store.dispatch("rename", { node: this.selectedNode, name });
+      try {
+        this.$store.dispatch("rename", { node: this.selectedNode, name });
+      } catch (err) {
+        this.sendError(err);
+        return;
+      }
     },
     onRemove(key: string) {
       let node = Utils.findNodeByKey(this.nodes, key);
@@ -200,7 +211,12 @@ export default {
     },
     doRemove() {
       this.isRemoveDialogVisible = false;
-      console.log("Remove");
+      try {
+        this.$store.dispatch("remove", this.selectedNode);
+      } catch (err) {
+        this.sendError(err);
+        return;
+      }
     },
     onUploads() {
       if (
@@ -251,6 +267,14 @@ export default {
     onSelect() {
       let url: string[] = this.path.map((node: INode) => node?.data?.name);
       console.log(path.join(...url));
+    },
+    sendError(message: string) {
+      this.$toast.add({
+        severity: "error",
+        summary: "Error Message",
+        detail: message,
+        life: 3000,
+      });
     },
   },
 };

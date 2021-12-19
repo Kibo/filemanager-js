@@ -1,15 +1,5 @@
 import Utils from "@/utils/Utils";
 
-describe("getDirsFromTree(nodes)", () => {
-  it("it returns dirs only", () => {
-    const dirsTree = Utils.getDirsFromTree(filesystem.root);
-    expect(dirsTree.length).toBe(3);
-    expect(dirsTree[0]?.children?.length).toBe(1);
-    expect(dirsTree[1]?.children?.length).toBe(0);
-    expect(dirsTree[2]?.children?.length).toBe(1);
-  });
-});
-
 describe("findNodeByKey(node)", () => {
   it("return node", () => {
     let key, node;
@@ -81,6 +71,33 @@ describe("getPath(nodes, node)", () => {
   });
 });
 
+describe("removeNode(nodes, node)", () => {
+  it("it removes node from nodes", () => {
+    let nodeKey, node;
+
+    nodeKey = "0-1-1";
+    node = Utils.findNodeByKey(filesystem.root, nodeKey);
+    expect(node?.key).toBe(nodeKey);
+    Utils.removeNode(filesystem.root, node);
+    node = Utils.findNodeByKey(filesystem.root, nodeKey);
+    expect(node).toBeUndefined();
+
+    nodeKey = "3-1-0";
+    node = Utils.findNodeByKey(filesystem.root, nodeKey);
+    expect(node?.key).toBe(nodeKey);
+    Utils.removeNode(filesystem.root, node);
+    node = Utils.findNodeByKey(filesystem.root, nodeKey);
+    expect(node).toBeUndefined();
+
+    nodeKey = "2";
+    node = Utils.findNodeByKey(filesystem.root, nodeKey);
+    expect(node?.key).toBe(nodeKey);
+    Utils.removeNode(filesystem.root, node);
+    node = Utils.findNodeByKey(filesystem.root, nodeKey);
+    expect(node).toBeUndefined();
+  });
+});
+
 const filesystem = {
   root: [
     {
@@ -90,6 +107,7 @@ const filesystem = {
         size: "75kb",
         type: "Folder",
       },
+      leaf: false,
       children: [
         {
           key: "0-1",
@@ -98,6 +116,7 @@ const filesystem = {
             size: "20kb",
             type: "Folder",
           },
+          leaf: false,
           children: [
             {
               key: "0-1-0",
@@ -106,6 +125,8 @@ const filesystem = {
                 size: "20kb",
                 type: "Folder",
               },
+              leaf: false,
+              children: [],
             },
             {
               key: "0-1-1",
@@ -114,6 +135,7 @@ const filesystem = {
                 size: "20kb",
                 type: "Image",
               },
+              leaf: true,
             },
           ],
         },
@@ -126,6 +148,7 @@ const filesystem = {
         size: "100kb",
         type: "Folder",
       },
+      leaf: false,
       children: [],
     },
     {
@@ -135,6 +158,7 @@ const filesystem = {
         size: "20kb",
         type: "Image",
       },
+      leaf: true,
     },
     {
       key: "3",
@@ -143,6 +167,7 @@ const filesystem = {
         size: "20kb",
         type: "Folder",
       },
+      leaf: false,
       children: [
         {
           key: "3-0",
@@ -151,6 +176,7 @@ const filesystem = {
             size: "20kb",
             type: "Image",
           },
+          leaf: true,
         },
         {
           key: "3-1",
@@ -159,6 +185,7 @@ const filesystem = {
             size: "20kb",
             type: "Folder",
           },
+          leaf: false,
           children: [
             {
               key: "3-1-0",
@@ -167,6 +194,7 @@ const filesystem = {
                 size: "20kb",
                 type: "Folder",
               },
+              leaf: false,
               children: [
                 {
                   key: "3-1-0-0",
@@ -175,6 +203,7 @@ const filesystem = {
                     size: "20kb",
                     type: "Image",
                   },
+                  leaf: true,
                 },
               ],
             },

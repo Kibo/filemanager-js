@@ -9,20 +9,20 @@ export default createStore({
   },
   mutations: {},
   actions: {
-    async updateFilesystem({ commit, state }, node: INode) {
+    updateFilesystem({ commit, state }, node: INode) {
       if (!node) {
-        state.filesystem = await API.list();
+        state.filesystem = API.list();
         return;
       }
 
       let dir = Utils.findNodeByKey(state.filesystem, node?.key);
-      dir.children = await API.list(node);
+      dir.children = API.list(node);
     },
-    async rename(
-      { commit, state },
-      { node, name }: { node: INode; name: string }
-    ) {
-      await API.rename(node, name);
+    rename({ commit, state }, { node, name }: { node: INode; name: string }) {
+      API.rename(node, name);
+    },
+    remove({ commit, state }, node: INode) {
+      API.remove(state.filesystem, node);
     },
   },
   modules: {},
