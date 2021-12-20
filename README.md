@@ -10,8 +10,8 @@ The Filemanager for CKEditor, Quill, TinyMCE.
 - **Uploads**
 - **Create directory**
 - **Rename**
-- **Delete**
 - **Remove**
+- **Copy/ Paste**
 
 ## Properties
 
