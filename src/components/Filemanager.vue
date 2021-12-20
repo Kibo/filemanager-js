@@ -26,7 +26,7 @@
     selectionMode="single"
     responsiveLayout="scroll"
     :loading="loading"
-    :lazy="true"
+    :lazy="false"
     v-model:selectionKeys="selectedKey"
     :expandedKeys="expandedKeys"
     @node-select="onNodeSelect"

@@ -87,16 +87,16 @@ export function mkdir(node: INode, name: string): INode {
  * @return {INode} - parent folder
  */
 export function uploads(node: INode, files: [any]): INode {
+  //throw new Error("Uploads error!");
   let nodes = files.map((f) => {
     return {
       key: uuidv4(),
-      data: { name: f.name, size: "100kb", type: "Image" },
+      data: { name: f.name, size: f.size / 1000 + "kb", type: "Image" },
       leaf: true,
     };
   });
 
   node?.children &&
     node?.children?.splice(node?.children.length - 1, 0, ...nodes);
-
   return node;
 }
