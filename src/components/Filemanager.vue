@@ -169,7 +169,7 @@ export default {
   mounted() {
     this.loading = true;
     try {
-      this.$store.dispatch("updateFilesystem");
+      this.$store.dispatch("updateFilesystem", this.getFakeRootNode());
     } catch (err) {
       this.sendError(err);
       return;
@@ -241,7 +241,15 @@ export default {
     },
     doUploads(files: any) {
       this.isUploadsDialogVisible = false;
-      console.log(files);
+      try {
+        this.$store.dispatch("uploads", {
+          node: this.selectedNode || this.getFakeRootNode(),
+          files,
+        });
+      } catch (err) {
+        this.sendError(err);
+        return;
+      }
     },
     onNewDirectory() {
       if (
@@ -271,9 +279,6 @@ export default {
       }
     },
     async onExpand(node: INode) {
-      if (Array.isArray(node?.children)) {
-        return;
-      }
       this.loading = true;
       try {
         this.$store.dispatch("updateFilesystem", node);
@@ -298,7 +303,7 @@ export default {
     },
     getFakeRootNode() {
       return {
-        key: "1clg61m5k6ut4uvs08m1",
+        key: "root",
         data: { name: "Root", size: "100kb", type: "Folder" },
         children: this.nodes,
         leaf: false,

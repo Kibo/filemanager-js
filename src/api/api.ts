@@ -25,10 +25,9 @@ const MOCK_FETCH_TIME = 500;
  * @param {INode | null} parent - directory node
  * @return {[INode]}
  */
-export function list(parent?: INode): INode[] {
+export function list(parent: INode): INode[] {
   //throw new Error("Server error");
-  let key = parent?.key;
-  return key ? branches[key] : branches["root"];
+  return branches[parent.key];
 }
 
 /**
@@ -65,7 +64,6 @@ export function remove(nodes: INode[], node: INode): INode {
  * @param {INode} - parent folder
  * @param {string} - name of new Directory
  * @return {INode} - new directory
- *
  */
 export function mkdir(node: INode, name: string): INode {
   //throw new Error("Can not create directory!");
@@ -78,4 +76,27 @@ export function mkdir(node: INode, name: string): INode {
 
   node?.children && node.children.push(dir);
   return dir;
+}
+
+/**
+ * Uploads files to a directory
+ *
+ * @throws {Error} - throw Error when occurs
+ * @param {INode} - parent folder
+ * @param {Array[]} - list of files
+ * @return {INode} - parent folder
+ */
+export function uploads(node: INode, files: [any]): INode {
+  let nodes = files.map((f) => {
+    return {
+      key: uuidv4(),
+      data: { name: f.name, size: "100kb", type: "Image" },
+      leaf: true,
+    };
+  });
+
+  node?.children &&
+    node?.children?.splice(node?.children.length - 1, 0, ...nodes);
+
+  return node;
 }

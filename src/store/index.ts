@@ -10,13 +10,8 @@ export default createStore({
   mutations: {},
   actions: {
     updateFilesystem({ commit, state }, node: INode) {
-      if (!node) {
-        state.filesystem = API.list();
-        return;
-      }
-
-      let dir = Utils.findNodeByKey(state.filesystem, node?.key);
-      dir.children = API.list(node);
+      let nodes = API.list(node);
+      node.key == "root" ? (state.filesystem = nodes) : (node.children = nodes);
     },
     rename({ commit, state }, { node, name }: { node: INode; name: string }) {
       API.rename(node, name);
@@ -26,6 +21,9 @@ export default createStore({
     },
     mkdir({ commit, state }, { node, name }: { node: INode; name: string }) {
       API.mkdir(node, name);
+    },
+    uploads({ commit, state }, { node, files }: { node: INode; files: [any] }) {
+      API.uploads(node, files);
     },
   },
   modules: {},
