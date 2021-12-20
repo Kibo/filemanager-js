@@ -260,15 +260,29 @@ export default {
     },
     doNewDirectory(name: string) {
       this.isDirectoryDialogVisible = false;
-      console.log(name);
+      try {
+        this.$store.dispatch("mkdir", {
+          node: this.selectedNode || this.getFakeRootNode(),
+          name,
+        });
+      } catch (err) {
+        this.sendError(err);
+        return;
+      }
     },
     async onExpand(node: INode) {
       if (Array.isArray(node?.children)) {
         return;
       }
       this.loading = true;
-      await this.$store.dispatch("updateFilesystem", node);
-      this.loading = false;
+      try {
+        this.$store.dispatch("updateFilesystem", node);
+      } catch (err) {
+        this.sendError(err);
+        return;
+      } finally {
+        this.loading = false;
+      }
     },
     onSelect() {
       let url: string[] = this.path.map((node: INode) => node?.data?.name);
@@ -281,6 +295,14 @@ export default {
         detail: message,
         life: 3000,
       });
+    },
+    getFakeRootNode() {
+      return {
+        key: "1clg61m5k6ut4uvs08m1",
+        data: { name: "Root", size: "100kb", type: "Folder" },
+        children: this.nodes,
+        leaf: false,
+      };
     },
   },
 };

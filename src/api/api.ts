@@ -2,6 +2,7 @@ import { INode } from "../types";
 import filesystem from "../data/filesystem.json";
 import Utils from "../utils/Utils";
 import axios from "axios";
+const { v4: uuidv4 } = require("uuid");
 const branches: any = filesystem;
 
 // ######################################################################
@@ -55,4 +56,26 @@ export function remove(nodes: INode[], node: INode): INode {
   //throw new Error("Can not remove!");
   Utils.removeNode(nodes, node);
   return node;
+}
+
+/**
+ * Create a directory
+ *
+ * @throws {Error} - throw Error when occurs
+ * @param {INode} - parent folder
+ * @param {string} - name of new Directory
+ * @return {INode} - new directory
+ *
+ */
+export function mkdir(node: INode, name: string): INode {
+  //throw new Error("Can not create directory!");
+  let dir = {
+    key: uuidv4(),
+    data: { name: name, size: "100kb", type: "Folder" },
+    children: [],
+    leaf: false,
+  };
+
+  node?.children && node.children.push(dir);
+  return dir;
 }

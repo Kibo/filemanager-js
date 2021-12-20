@@ -24,6 +24,9 @@ export default createStore({
     remove({ commit, state }, node: INode) {
       API.remove(state.filesystem, node);
     },
+    mkdir({ commit, state }, { node, name }: { node: INode; name: string }) {
+      API.mkdir(node, name);
+    },
   },
   modules: {},
 });
