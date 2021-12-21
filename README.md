@@ -20,6 +20,24 @@ The Filemanager for CKEditor, Quill, TinyMCE.
 - Sorting by name/ size/ type
 - Uploads multiple files
 
+## Try it yourself
+
+```
+git@github.com:Kibo/filemanager-js.git
+```
+
+```
+npm i
+```
+
+```
+npm run serve
+```
+
+```
+localhost:8080
+```
+
 ## Node type
 
 - [TypeScript INode interface](/src/types/index.ts)
