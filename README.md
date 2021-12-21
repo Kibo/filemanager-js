@@ -20,27 +20,29 @@ The Filemanager for CKEditor, Quill, TinyMCE.
 - Sorting by name/ size/ type
 - Uploads multiple files
 
+---
+
 ## 1. Try it yourself
 
-**Clone repository**
+**1.1) Clone repository**
 
 ```
 git@github.com:Kibo/filemanager-js.git
 ```
 
-**Install dependencies**
+**1.2) Install dependencies**
 
 ```
 npm i
 ```
 
-**Run it**
+**1.3) Run it**
 
 ```
 npm run serve
 ```
 
-**Look at your browser**
+**1.4) Look at your browser**
 
 ```
 localhost:8080
@@ -48,9 +50,9 @@ localhost:8080
 
 ---
 
-## 2. Integration with your editor
+## 2. Integration with your preferred editor
 
-**2.1 Set editor name**
+**2.1) Set editor name**
 
 [filemanager.config.ts](/src/integration/filemanager.config.ts)
 
@@ -58,11 +60,11 @@ localhost:8080
 - EDITORS.quill
 - EDITORS.tinymce
 
-**2.2 Set OUTPUT_PATH and PUBLIC_PATH**
+**2.2) Set OUTPUT_PATH and PUBLIC_PATH**
 
 [vue.config.js](vue.config.js)
 
-**2.3 Build filemanager**
+**2.3) Build filemanager**
 
 ```
 npm run build
@@ -74,7 +76,7 @@ npm run build
 
 ```
 var editor = CKEDITOR.replace( 'ckeditor1', {
-  filebrowserBrowseUrl: "/vendor/kibo-filemanager/index.html?exclusiveFolder=/uploads/"
+  filebrowserBrowseUrl: "/vendor/kibo-filemanager/index.html"
 });
 ```
 
@@ -85,6 +87,34 @@ var editor = CKEDITOR.replace( 'ckeditor1', {
 ### TyniMCE
 
 - todo
+
+---
+
+## 3. Create API on your backend server
+
+- list( url:string )
+- rename( url:string, name:string )
+- remove( url:string )
+- uploads( url:string, files:array )
+- mkdir (url:string, name:string )
+
+---
+
+## 4. Connect the filemanager to your backend API
+
+- [API](/src/api/api.ts)
+
+You can use prepared [Axios](https://www.npmjs.com/package/axios) and some [Utils](/src/utils/Utils.ts).
+
+---
+
+## 5. Build Filemanager
+
+```
+npm run build
+```
+
+---
 
 ## Node type
 
