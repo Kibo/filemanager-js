@@ -64,11 +64,35 @@ localhost:8080
 
 [vue.config.js](vue.config.js)
 
-**2.3) Build filemanager**
+---
+
+## 3. Create API on your backend server
+
+- list( url:string )
+- rename( url:string, name:string )
+- remove( url:string )
+- uploads( url:string, files:array )
+- mkdir (url:string, name:string )
+
+---
+
+## 4. Connect the filemanager to your backend API
+
+- [API](/src/api/api.ts)
+
+You can use prepared [Axios](https://www.npmjs.com/package/axios) and some [Utils](/src/utils/Utils.ts).
+
+---
+
+## 5. Build the Filemanager
 
 ```
 npm run build
 ```
+
+---
+
+## 6. Connect the Filemanager with your preferred editor
 
 ### CKEditor 4
 
@@ -90,43 +114,16 @@ var editor = CKEDITOR.replace( 'ckeditor1', {
 
 ---
 
-## 3. Create API on your backend server
+## Development
 
-- list( url:string )
-- rename( url:string, name:string )
-- remove( url:string )
-- uploads( url:string, files:array )
-- mkdir (url:string, name:string )
+- There is method 'onSelect()' in file /src/components/Filemenager.vue. The method return URL of selected file.
 
----
-
-## 4. Connect the filemanager to your backend API
-
-- [API](/src/api/api.ts)
-
-You can use prepared [Axios](https://www.npmjs.com/package/axios) and some [Utils](/src/utils/Utils.ts).
-
----
-
-## 5. Build Filemanager
-
-```
-npm run build
-```
-
----
-
-## Node type
+### Node type
 
 - [TypeScript INode interface](/src/types/index.ts)
 - [filesystem.json](/src/data/filesystem.json)
 
-## How to
-
-1. Create an API on your backed server (filesystem, S3, Dropbox, GDisk, ...)
-2. Connect the Filemanager to your [API](/src/api/api.ts)
-3. Build the Filemanager
-4. Setup the Filemanger for your prefered WYSIWIG editor. For instance CKEditor.
+---
 
 ## Project setup
 
