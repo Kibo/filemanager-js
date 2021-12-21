@@ -125,8 +125,8 @@ var editor = CKEDITOR.replace( 'ckeditor1', {
 ## Development
 
 - There is method _onSelect()_ in file _/src/components/Filemenager.vue_. It returns an URL of selected file.
-- There are integration file for every editor [integration](/src/integration).
-- The Node use [INode interface](/src/types/index.ts).
+- There are [integration files](/src/integration) for every editor.
+- The Node (file, directory) has to implement this [INode interface](/src/types/index.ts).
 - [Mock filesystem](/src/data/filesystem.json).
 
 ---
