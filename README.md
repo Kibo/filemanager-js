@@ -2,8 +2,6 @@
 
 The easy to use Filemanager for CKEditor, Quill, TinyMCE, ...
 
-![Filemanager](/public/screens/screen1.png)
-
 ### Commands
 
 - **Select path**
@@ -19,6 +17,12 @@ The easy to use Filemanager for CKEditor, Quill, TinyMCE, ...
 - Active breadcrumb
 - Sorting by name/ size/ type
 - Uploads multiple files
+
+![Filemanager](/public/screens/screen1.png)
+
+![Filemanager](/public/screens/screen2.png)
+
+![Filemanager](/public/screens/screen3.png)
 
 ---
 
