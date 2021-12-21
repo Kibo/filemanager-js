@@ -112,7 +112,7 @@
 
 <script lang="ts">
 const path = require("path");
-import { INode } from "../types";
+import { INode, EDITORS } from "../types";
 import { defineAsyncComponent } from "vue";
 import Utils from "../utils/Utils";
 import Toolbar from "primevue/toolbar";
@@ -126,6 +126,10 @@ import RemoveDialog from "./RemoveDialog.vue";
 import RenameDialog from "./RenameDialog.vue";
 import DirectoryDialog from "./DirectoryDialog.vue";
 import UploadsDialog from "./UploadsDialog.vue";
+
+// integration
+import { config } from "../integration/filemanager.config";
+import * as ckeditor from "../integration/ckeditor4";
 
 export default {
   name: "Filemanager",
@@ -289,9 +293,23 @@ export default {
         this.loading = false;
       }
     },
+
+    /*
+     * Select URL
+     *
+     * @return {string} url of selected file
+     */
     onSelect() {
       let url: string[] = this.path.map((node: INode) => node?.data?.name);
-      console.log(path.join(...url));
+      let pathToNode = path.join("/", ...url);
+
+      switch (config.EDITOR_NAME) {
+        case EDITORS.ckeditor4:
+          ckeditor.select(pathToNode);
+          break;
+        default:
+          throw new Error("Not implemented yet.");
+      }
     },
     sendError(message: string) {
       this.$toast.add({

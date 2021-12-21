@@ -17,3 +17,12 @@ export interface INode {
   children?: INode[];
   leaf: boolean;
 }
+
+/**
+ * Names of supported editors for integration with this filemanager
+ */
+export enum EDITORS {
+  ckeditor4,
+  quill,
+  tinymce,
+}
