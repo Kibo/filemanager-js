@@ -4,7 +4,7 @@ The Filemanager for CKEditor, Quill, TinyMCE.
 
 ![Filemanager](/public/screens/screen1.png)
 
-## Commands
+### Commands
 
 - **Select path**
 - **Uploads**
@@ -12,7 +12,7 @@ The Filemanager for CKEditor, Quill, TinyMCE.
 - **Rename**
 - **Remove**
 
-## Properties
+### Properties
 
 - Lazy loading of directory content
 - Responsive layout
@@ -20,7 +20,7 @@ The Filemanager for CKEditor, Quill, TinyMCE.
 - Sorting by name/ size/ type
 - Uploads multiple files
 
-## Try it yourself
+## 1. Try it yourself
 
 **Clone repository**
 
@@ -46,6 +46,28 @@ npm run serve
 localhost:8080
 ```
 
+---
+
+## 2. Integration with your editor
+
+### CKEditor
+
+@see https://ckeditor.com/docs/ckeditor4/latest/guide/dev_file_browse_upload.html
+
+```
+var editor = CKEDITOR.replace( 'ckeditor1', {
+  filebrowserBrowseUrl: "/vendor/kibo-filemanager/index.html?exclusiveFolder=/uploads/"
+});
+```
+
+### Quill
+
+- todo
+
+### TyniMCE
+
+- todo
+
 ## Node type
 
 - [TypeScript INode interface](/src/types/index.ts)
@@ -57,10 +79,6 @@ localhost:8080
 2. Connect the Filemanager to your [API](/src/api/api.ts)
 3. Build the Filemanager
 4. Setup the Filemanger for your prefered WYSIWIG editor. For instance CKEditor.
-
-### CKEditor
-
-- todo
 
 ## Project setup
 
