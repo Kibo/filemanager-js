@@ -22,25 +22,25 @@ The Filemanager for CKEditor, Quill, TinyMCE.
 
 ## Try it yourself
 
-Clone repository
+**Clone repository**
 
 ```
 git@github.com:Kibo/filemanager-js.git
 ```
 
-Install dependencies
+**Install dependencies**
 
 ```
 npm i
 ```
 
-Run it
+**Run it**
 
 ```
 npm run serve
 ```
 
-Look at your browser
+**Look at your browser**
 
 ```
 localhost:8080
