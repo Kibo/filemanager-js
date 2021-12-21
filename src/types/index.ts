@@ -25,4 +25,5 @@ export enum EDITORS {
   ckeditor4,
   quill,
   tinymce,
+  unknown,
 }

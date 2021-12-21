@@ -308,7 +308,12 @@ export default {
           ckeditor.select(pathToNode);
           break;
         default:
-          throw new Error("Not implemented yet.");
+          this.$toast.add({
+            severity: "success",
+            summary: "Selected:",
+            detail: pathToNode,
+            life: 3000,
+          });
       }
     },
     sendError(message: string) {
