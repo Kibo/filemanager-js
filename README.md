@@ -50,7 +50,7 @@ localhost:8080
 
 ## 2. Integration with your editor
 
-**Set editor name**
+**2.1 Set editor name**
 
 [filemanager.config.ts](/src/integration/filemanager.config.ts)
 
@@ -58,11 +58,11 @@ localhost:8080
 - EDITORS.quill
 - EDITORS.tinymce
 
-**Set OUTPUT_PATH and PUBLIC_PATH**
+**2.2 Set OUTPUT_PATH and PUBLIC_PATH**
 
 [vue.config.js](vue.config.js)
 
-**Build filemanager**
+**2.3 Build filemanager**
 
 ```
 npm run build
