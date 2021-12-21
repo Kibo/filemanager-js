@@ -1,6 +1,6 @@
 # Filemanager-js
 
-The Filemanager for CKEditor, Quill, TinyMCE.
+The easy to use Filemanager for CKEditor, Quill, TinyMCE, ...
 
 ![Filemanager](/public/screens/screen1.png)
 
