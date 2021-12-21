@@ -15,9 +15,6 @@ const branches: any = filesystem;
 // ## - AXIOS ( https://www.npmjs.com/package/vue-axios ) is prepared    ##
 // ########################################################################
 
-// 0.5 sec
-const MOCK_FETCH_TIME = 500;
-
 /**
  * Get all nodes from parent
  *

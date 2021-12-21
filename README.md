@@ -68,17 +68,21 @@ localhost:8080
 
 ## 3. Create API on your backend server
 
+Implementation for filesystem, S3, Dropbox, Cloudinary, Google Drive, ...
+
 - list( url:string )
 - rename( url:string, name:string )
 - remove( url:string )
 - uploads( url:string, files:array )
 - mkdir (url:string, name:string )
 
+Do you have a NodeJS project? Hire me!
+
 ---
 
 ## 4. Connect the filemanager to your backend API
 
-- [API](/src/api/api.ts)
+- mock [API](/src/api/api.ts)
 
 You can use prepared [Axios](https://www.npmjs.com/package/axios) and some [Utils](/src/utils/Utils.ts).
 
@@ -121,7 +125,7 @@ var editor = CKEDITOR.replace( 'ckeditor1', {
 ### Node type
 
 - [TypeScript INode interface](/src/types/index.ts)
-- [filesystem.json](/src/data/filesystem.json)
+- mock [filesystem.json](/src/data/filesystem.json)
 
 ---
 
