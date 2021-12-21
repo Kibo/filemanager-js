@@ -50,7 +50,23 @@ localhost:8080
 
 ## 2. Integration with your editor
 
-### CKEditor
+**Set editor name**
+(filemanager.config.ts)[/src/integration/filemanager.config.ts]
+
+- EDITORS.ckeditor4
+- EDITORS.quill
+- EDITORS.tinymce
+
+**Set OUTPUT_PATH and PUBLIC_PATH**
+(vue.config.js)[vue.config.js]
+
+**Build filemanager**
+
+```
+npm run build
+```
+
+### CKEditor 4
 
 @see https://ckeditor.com/docs/ckeditor4/latest/guide/dev_file_browse_upload.html
 
