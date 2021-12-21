@@ -56,17 +56,13 @@ localhost:8080
 
 ## 2. Integration with your preferred editor
 
-**2.1) Set editor name**
-
-[filemanager.config.ts](/src/integration/filemanager.config.ts)
+**2.1) Set editor name** in [filemanager.config.ts](/src/integration/filemanager.config.ts)
 
 - EDITORS.ckeditor4
 - EDITORS.quill
 - EDITORS.tinymce
 
-**2.2) Set OUTPUT_PATH and PUBLIC_PATH**
-
-[vue.config.js](vue.config.js)
+**2.2) Set OUTPUT_PATH and PUBLIC_PATH** in [vue.config.js](vue.config.js)
 
 ---
 
