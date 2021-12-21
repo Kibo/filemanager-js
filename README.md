@@ -74,7 +74,7 @@ localhost:8080
 - uploads( url:string, files:array )
 - mkdir (url:string, name:string )
 
-Do you have a NodeJS project? Hire me! Implementation for filesystem, S3, Dropbox, Cloudinary, Google Drive, ...
+_Do you have a NodeJS project? Hire me! Implementation for filesystem, S3, Dropbox, Cloudinary, Google Drive, ..._
 
 ---
 
