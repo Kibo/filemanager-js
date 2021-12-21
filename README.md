@@ -11,7 +11,6 @@ The Filemanager for CKEditor, Quill, TinyMCE.
 - **Create directory**
 - **Rename**
 - **Remove**
-- **Copy/ Paste**
 
 ## Properties
 
