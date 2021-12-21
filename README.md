@@ -68,15 +68,13 @@ localhost:8080
 
 ## 3. Create API on your backend server
 
-Implementation for filesystem, S3, Dropbox, Cloudinary, Google Drive, ...
-
 - list( url:string )
 - rename( url:string, name:string )
 - remove( url:string )
 - uploads( url:string, files:array )
 - mkdir (url:string, name:string )
 
-Do you have a NodeJS project? Hire me!
+Do you have a NodeJS project? Hire me! Implementation for filesystem, S3, Dropbox, Cloudinary, Google Drive, ...
 
 ---
 
@@ -120,7 +118,7 @@ var editor = CKEDITOR.replace( 'ckeditor1', {
 
 ## Development
 
-- There is method 'onSelect()' in file /src/components/Filemenager.vue. The method return URL of selected file.
+- There is method _onSelect()_ in file _/src/components/Filemenager.vue_. It returns an URL of selected file.
 
 ### Node type
 
