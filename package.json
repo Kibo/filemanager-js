@@ -1,5 +1,5 @@
 {
-  "name": "filemanager-js",
+  "name": "kibo-filemanager-js",
   "description": "The JavaScript Filemanager for CKEditor, Quill, TinyMCE editors",
   "author": "Tomas Jurman <tomasjurman@gmail.com> (https://github.com/Kibo)",
   "repository": {
