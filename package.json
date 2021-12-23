@@ -4,7 +4,7 @@
   "author": "Tomas Jurman <tomasjurman@gmail.com> (https://github.com/Kibo)",
   "repository": {
     "type": "git",
-    "url": "git@github.com:Kibo/aws-chime-client.git"
+    "url": "git@github.com:Kibo/filemanager-js.git"
   },
   "license": "MIT",
   "keywords": [
