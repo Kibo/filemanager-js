@@ -108,7 +108,9 @@ var editor = CKEDITOR.replace( 'ckeditor1', {
 
 ### Quill
 
-The filemanager add image and link dialog.
+@see https://quilljs.com/docs/modules/toolbar/#handlers
+
+The filemanager creates image and link dialog too. You're welcome.
 
 ```
 var quill1 = new Quill('#editor', {
