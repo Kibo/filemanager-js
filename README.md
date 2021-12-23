@@ -60,7 +60,7 @@ localhost:8080
 
 - EDITORS.ckeditor4
 - EDITORS.quill
-- EDITORS.tinymce
+- EDITORS.tinymce5
 
 **2.2) Set OUTPUT_PATH and PUBLIC_PATH** in [vue.config.js](https://github.com/Kibo/filemanager-js/blob/master/vue.config.js)
 
@@ -137,9 +137,48 @@ This creates new handlers for image and link. Pls, notice that there are params 
 - param _iname_ means instance name, and value is the name of quill variable. In this case _quill1_. This is for case you use multiple instances of quill.
 - param _filter_ means filter, and open image or link dialog.
 
-### TyniMCE
+### TyniMCE 5
 
-- todo
+@see https://www.tiny.cloud/docs/configure/file-image-upload/#file_picker_callback
+
+```
+tinymce.init({
+  selector: '#mytextarea',
+  height: 500,
+  plugins: ['link image'],
+  toolbar: 'link image',
+  file_picker_callback: function (callback, value, meta) {
+        var type = meta.filetype;
+        var field_name = 'tinymce-5';
+        var w = window,
+            d = document,
+            e = d.documentElement,
+            g = d.getElementsByTagName('body')[0],
+            x = w.innerWidth || e.clientWidth || g.clientWidth,
+            y = w.innerHeight || e.clientHeight || g.clientHeight;
+
+        var cmsURL = '/vendor/kibo-filemanager/index.html?&field_name=' + field_name + '&langCode=en';
+
+        if (type == 'image') {
+            cmsURL = cmsURL + "&type=images";
+        }
+        tinymce.activeEditor.windowManager.openUrl({
+            url: cmsURL,
+            title: 'Filemanager',
+            width: x * 0.8,
+            height: y * 0.8,
+            resizable: "yes",
+            close_previous: "no",
+            onMessage: function (api, data) {
+                if (data.mceAction === 'customAction') {
+                    callback(data.url);
+                    api.close();
+                }
+            }
+        });
+    }
+});
+```
 
 ---
 

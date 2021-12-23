@@ -24,6 +24,6 @@ export interface INode {
 export enum EDITORS {
   ckeditor4,
   quill,
-  tinymce,
+  tinymce5,
   unknown,
 }

@@ -142,6 +142,7 @@ import { config } from "../integration/filemanager.config";
 import * as ckeditor from "../integration/ckeditor4";
 import QuillLinkDialog from "../integration/quill/QuillLinkDialog.vue";
 import QuillImageDialog from "../integration/quill/QuillImageDialog.vue";
+import * as tinymce from "../integration/tinymce5";
 
 export default {
   name: "Filemanager",
@@ -330,6 +331,9 @@ export default {
           filterParam == "image"
             ? (this.isQuillImageDialogVisible = true)
             : (this.isQuillLinkDialogVisible = true);
+          break;
+        case EDITORS.tinymce5:
+          tinymce.select(this.url);
           break;
         default:
           this.$toast.add({
