@@ -106,11 +106,14 @@ var editor = CKEDITOR.replace( 'ckeditor1', {
 });
 ```
 
-### Quill
+### Quill 1.3.7
 
 @see https://quilljs.com/docs/modules/toolbar/#handlers
 
 The filemanager creates image and link dialog too. You're welcome.
+
+![LinkDialog](/public/screens/quill-link-dialog.png)
+![LinkDialog](/public/screens/quill-image-dialog.png)
 
 ```
 var quill1 = new Quill('#editor', {
@@ -131,7 +134,7 @@ function setLink(value){
 
 This creates new handlers for image and link. Pls, notice that there are params in filemanager URL: _iname_ and _filter_.
 
-- param _iname_ means instance name, and value is the name of quill variable. In this case _quill1_.
+- param _iname_ means instance name, and value is the name of quill variable. In this case _quill1_. This is for case you use multiple instances of quill.
 - param _filter_ means filter, and open image or link dialog.
 
 ### TyniMCE

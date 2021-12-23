@@ -107,6 +107,11 @@
     @onClose="isUploadsDialogVisible = false"
     @onConfirm="doUploads"
   />
+  <QuillLinkDialog
+    :isVisible="isQuillLinkDialogVisible"
+    :url="url"
+    @onClose="isQuillLinkDialogVisible = false"
+  />
   <Toast position="top-center" />
 </template>
 
@@ -127,10 +132,11 @@ import RenameDialog from "./RenameDialog.vue";
 import DirectoryDialog from "./DirectoryDialog.vue";
 import UploadsDialog from "./UploadsDialog.vue";
 
-// integration
+// editor integration
 import { config } from "../integration/filemanager.config";
 import * as ckeditor from "../integration/ckeditor4";
-import * as quill from "../integration/quill";
+import QuillLinkDialog from "../integration/quill/QuillLinkDialog.vue";
+import QuillImageDialog from "../integration/quill/QuillImageDialog.vue";
 
 export default {
   name: "Filemanager",
@@ -146,6 +152,8 @@ export default {
     RenameDialog,
     DirectoryDialog,
     UploadsDialog,
+    QuillLinkDialog,
+    QuillImageDialog,
   },
   props: [],
   data() {
@@ -154,11 +162,14 @@ export default {
       selectedKey: undefined,
       expandedKeys: {},
       path: [],
+      url: "/",
       loading: true,
       isRemoveDialogVisible: false,
       isRenameDialogVisible: false,
       isDirectoryDialogVisible: false,
       isUploadsDialogVisible: false,
+      isQuillImageDialogVisible: false,
+      isQuillLinkDialogVisible: false,
     };
   },
   computed: {
@@ -169,6 +180,10 @@ export default {
   watch: {
     selectedNode(node: INode) {
       this.path = node ? Utils.getPath(this.nodes, node) : [];
+      this.url = path.join(
+        "/",
+        ...this.path.map((node: INode) => node?.data?.name)
+      );
     },
   },
   mounted() {
@@ -301,21 +316,21 @@ export default {
      * @return {string} url of selected file
      */
     onSelect() {
-      let url: string[] = this.path.map((node: INode) => node?.data?.name);
-      let pathToNode = path.join("/", ...url);
-
       switch (config.EDITOR_NAME) {
         case EDITORS.ckeditor4:
-          ckeditor.select(pathToNode);
+          ckeditor.select(this.url);
           break;
         case EDITORS.quill:
-          quill.select(pathToNode, this.selectedNode);
+          let filterParam = Utils.getUrlParam("filter") ?? "link";
+          filterParam == "image"
+            ? (this.isQuillImageDialogVisible = true)
+            : (this.isQuillLinkDialogVisible = true);
           break;
         default:
           this.$toast.add({
             severity: "success",
             summary: "Selected:",
-            detail: pathToNode,
+            detail: this.url,
             life: 3000,
           });
       }

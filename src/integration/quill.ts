@@ -10,13 +10,15 @@ import { INode } from "../types";
  *
  * @see https://quilljs.com/guides/cloning-medium-with-parchment/
  *
- * @param {string} url
- * @param {INode} node
+ * @param {string} embed - "kibo-link" or "kibo-image"
+ * @param {object} data - attributes for image or link like object
  */
-export function select(url: string, node: INode): void {
-  let instanceNameParam = Utils.getUrlParam("iname");
-  let quill = instanceNameParam ? window.opener[instanceNameParam] : "quill";
-  if (!quill) {
+export function select(embed: string, data: any): void {
+  let instanceNameParam = Utils.getUrlParam("iname") ?? "quill";
+  let quill;
+  try {
+    quill = instanceNameParam && window?.opener[instanceNameParam];
+  } catch (err) {
     throw new Error(
       "There is not quill instance with name: " + instanceNameParam
     );
@@ -28,30 +30,7 @@ export function select(url: string, node: INode): void {
   const range = quill.getSelection(true);
   if (range != null) {
     const index = range.index + range.length;
-
-    quill.format(
-      "kibo-image",
-      {
-        src: url,
-        alt: "123",
-        width: "100%",
-        height: "",
-        class: "ing img2",
-      },
-      "user"
-    );
-
-    /*
-    quill.format(
-      "kibo-link",
-      {
-        href: url,
-        target: "_bla",
-        class: "btn btn2",
-      },
-      "user"
-    );
-    */
+    quill.format(embed, data, "user");
   }
   window.close();
 }
@@ -92,7 +71,7 @@ function registerImageEmbed(Quill: any) {
 }
 
 /**
- * Create new Embed - Link (href, target, class)
+ * Create new Embed - Link (href, target, class, title)
  *
  * @see https://github.com/quilljs/quill/blob/develop/formats/image.js
  */
@@ -105,6 +84,7 @@ function registerLinkEmbed(Quill: any) {
       node.setAttribute("href", value.href);
       value.target && node.setAttribute("target", value.target);
       value.class && node.setAttribute("class", value.class);
+      value.title && node.setAttribute("title", value.title);
       return node;
     }
 
@@ -113,6 +93,7 @@ function registerLinkEmbed(Quill: any) {
         href: node.getAttribute("href"),
         target: node.getAttribute("target"),
         class: node.getAttribute("class"),
+        title: node.getAttribute("title"),
       };
     }
   }
