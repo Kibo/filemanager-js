@@ -1,3 +1,6 @@
+import Utils from "../utils/Utils";
+import { INode } from "../types";
+
 /**
  * Select url for CKEditor 4
  *
@@ -8,14 +11,8 @@
  */
 export function select(url: string): void {
   window.opener.CKEDITOR.tools.callFunction(
-    getUrlParam("CKEditorFuncNum"),
+    Utils.getUrlParam("CKEditorFuncNum"),
     url
   );
   window.close();
-}
-
-function getUrlParam(paramName: any) {
-  let reParam = new RegExp("(?:[?&]|&)" + paramName + "=([^&]+)", "i");
-  let match = window.location.search.match(reParam);
-  return match && match.length > 1 ? match[1] : null;
 }

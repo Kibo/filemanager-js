@@ -326,7 +326,7 @@ export default {
           ckeditor.select(this.url);
           break;
         case EDITORS.quill:
-          let filterParam = Utils.getUrlParam("filter") ?? "image";
+          let filterParam = Utils.getUrlParam("filter") ?? "link";
           filterParam == "image"
             ? (this.isQuillImageDialogVisible = true)
             : (this.isQuillLinkDialogVisible = true);
