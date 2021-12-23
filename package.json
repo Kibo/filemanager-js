@@ -14,7 +14,7 @@
     "Quill",
     "TinyMCE"
   ],
-  "version": "0.9.3.1",
+  "version": "0.9.4",
   "private": false,
   "scripts": {
     "serve": "vue-cli-service serve",
