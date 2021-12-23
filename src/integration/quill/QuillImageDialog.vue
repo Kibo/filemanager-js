@@ -23,17 +23,19 @@
     <h5 class="mb-1">alt="{{ data.alt }}"</h5>
     <InputText type="text" v-model="data.alt" />
 
-    <h5 class="mb-1">class="{{ data.class }}"</h5>
-    <InputText type="text" v-model="data.class" />
+    <div class="grid">
+      <div class="col">
+        <h5 class="mb-1">class="{{ data.class }}"</h5>
+        <InputText type="text" v-model="data.class" />
 
-    <div class="formgrid grid">
-      <div class="field col">
         <h5 class="mb-1">width="{{ data.width }}"</h5>
         <InputText type="text" v-model="data.width" />
-      </div>
-      <div class="field col">
+
         <h5 class="mb-1">height="{{ data.height }}"</h5>
         <InputText type="text" v-model="data.height" />
+      </div>
+      <div class="col mt-2">
+        <Image :src="data.src" :alt="data.alt" imageClass="w-full" />
       </div>
     </div>
 
@@ -62,10 +64,11 @@ import { defineAsyncComponent } from "vue";
 import Button from "primevue/button";
 import Dialog from "primevue/dialog";
 import InputText from "primevue/inputtext";
+import Image from "primevue/image";
 
 export default {
   name: "RemoveDialog",
-  components: { Button, Dialog, InputText },
+  components: { Button, Dialog, InputText, Image },
   emits: ["onConfirm", "onClose"],
   props: ["url", "isVisible"],
   data() {
