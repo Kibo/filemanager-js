@@ -99,6 +99,18 @@ const Utils = {
 
     lookup(nodes, node);
   },
+
+  /**
+   * Read value from URL parameter
+   *
+   * @param {string} paramName
+   * @return {string} value or null
+   */
+  getUrlParam(paramName: string) {
+    let reParam = new RegExp("(?:[?&]|&)" + paramName + "=([^&]+)", "i");
+    let match = window.location.search.match(reParam);
+    return match && match.length > 1 ? match[1] : null;
+  },
 };
 
 /*

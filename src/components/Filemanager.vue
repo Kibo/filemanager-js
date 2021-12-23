@@ -130,6 +130,7 @@ import UploadsDialog from "./UploadsDialog.vue";
 // integration
 import { config } from "../integration/filemanager.config";
 import * as ckeditor from "../integration/ckeditor4";
+import * as quill from "../integration/quill";
 
 export default {
   name: "Filemanager",
@@ -306,6 +307,9 @@ export default {
       switch (config.EDITOR_NAME) {
         case EDITORS.ckeditor4:
           ckeditor.select(pathToNode);
+          break;
+        case EDITORS.quill:
+          quill.select(pathToNode, this.selectedNode);
           break;
         default:
           this.$toast.add({

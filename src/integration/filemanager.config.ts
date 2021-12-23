@@ -6,5 +6,5 @@ export const config = {
    * @type {string}
    * @see /types/index.ts
    */
-  EDITOR_NAME: EDITORS.unknown,
+  EDITOR_NAME: EDITORS.quill,
 };

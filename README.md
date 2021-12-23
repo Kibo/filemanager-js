@@ -108,7 +108,29 @@ var editor = CKEDITOR.replace( 'ckeditor1', {
 
 ### Quill
 
-- todo
+The filemanager add image and link dialog.
+
+```
+var quill1 = new Quill('#editor', {
+  theme: 'snow'
+});
+
+var toolbar = quill1.getModule('toolbar');
+toolbar.addHandler('image', setImage);
+function setImage(value){
+  window.open("/vendor/kibo-filemanager/index.html?iname=quill1&filter=image", "filemanager", "height=768,width=1024");
+}
+
+toolbar.addHandler('link', setLink);
+function setLink(value){
+  window.open("/vendor/kibo-filemanager/index.html?iname=quill1&filter=link", "filemanager", "height=768,width=1024");
+}
+```
+
+This creates new handlers for image and link. Pls, notice that there are params in filemanager URL: _iname_ and _filter_.
+
+- param _iname_ means instance name, and value is the name of quill variable. In this case _quill1_.
+- param _filter_ means filter, and open image or link dialog.
 
 ### TyniMCE
 
