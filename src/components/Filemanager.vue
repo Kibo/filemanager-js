@@ -112,6 +112,11 @@
     :url="url"
     @onClose="isQuillLinkDialogVisible = false"
   />
+  <QuillImageDialog
+    :isVisible="isQuillImageDialogVisible"
+    :url="url"
+    @onClose="isQuillImageDialogVisible = false"
+  />
   <Toast position="top-center" />
 </template>
 
@@ -321,7 +326,7 @@ export default {
           ckeditor.select(this.url);
           break;
         case EDITORS.quill:
-          let filterParam = Utils.getUrlParam("filter") ?? "link";
+          let filterParam = Utils.getUrlParam("filter") ?? "image";
           filterParam == "image"
             ? (this.isQuillImageDialogVisible = true)
             : (this.isQuillLinkDialogVisible = true);

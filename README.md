@@ -110,7 +110,7 @@ var editor = CKEDITOR.replace( 'ckeditor1', {
 
 @see https://quilljs.com/docs/modules/toolbar/#handlers
 
-The filemanager creates image and link dialog too. You're welcome.
+The filemanager creates **image and link dialog** too. You're welcome.
 
 ![LinkDialog](/public/screens/quill-link-dialog.png)
 ![LinkDialog](/public/screens/quill-image-dialog.png)
