@@ -56,13 +56,13 @@ localhost:8080
 
 ## 2. Integration with your preferred editor
 
-**2.1) Set editor name** in [filemanager.config.ts](/src/integration/filemanager.config.ts)
+**2.1) Set editor name** in [filemanager.config.ts](https://github.com/Kibo/filemanager-js/blob/master/src/integration/filemanager.config.ts)
 
 - EDITORS.ckeditor4
 - EDITORS.quill
 - EDITORS.tinymce
 
-**2.2) Set OUTPUT_PATH and PUBLIC_PATH** in [vue.config.js](vue.config.js)
+**2.2) Set OUTPUT_PATH and PUBLIC_PATH** in [vue.config.js](https://github.com/Kibo/filemanager-js/blob/master/vue.config.js)
 
 ---
 
@@ -80,9 +80,9 @@ _Do you have a NodeJS project? Hire me! Implementation for filesystem, S3, Dropb
 
 ## 4. Connect the filemanager to your backend API
 
-- mock [API](/src/api/api.ts)
+- mock [API](https://github.com/Kibo/filemanager-js/blob/master/src/api/api.ts)
 
-You can use prepared [Axios](https://www.npmjs.com/package/axios) and some [Utils](/src/utils/Utils.ts).
+You can use prepared [Axios](https://www.npmjs.com/package/axios) and some [Utils](https://github.com/Kibo/filemanager-js/blob/master/src/utils/Utils.ts).
 
 ---
 
@@ -152,9 +152,9 @@ This creates new handlers for image and link. Pls, notice that there are params 
 ## Development
 
 - There is method _onSelect()_ in file _/src/components/Filemenager.vue_. It returns an URL of selected file.
-- There are [integration files](/src/integration) for every editor.
-- The Node (file, directory) has to implement this [INode interface](/src/types/index.ts).
-- [Mock filesystem](/src/data/filesystem.json).
+- There are [integration files](https://github.com/Kibo/filemanager-js/tree/master/src/integration) for every editor.
+- The Node (file, directory) has to implement this [INode interface](https://github.com/Kibo/filemanager-js/blob/master/src/types/index.ts).
+- [Mock filesystem](https://github.com/Kibo/filemanager-js/blob/master/src/data/filesystem.json).
 
 ---
 
