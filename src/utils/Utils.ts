@@ -1,4 +1,5 @@
 import { INode } from "../types";
+const path = require("path");
 
 const Utils = {
   TYPE_FOLDER: "Folder",
@@ -76,20 +77,9 @@ const Utils = {
    */
   removeNode(nodes: INode[], node: INode): void {
     let lookup = function (list: INode[], child: INode) {
-      let idx = undefined;
-      for (const [k, val] of list.entries()) {
-        if (val.key == child?.key) {
-          idx = k;
-        }
-      }
-      if (idx) {
-        list.splice(idx, 1);
-        return;
-      }
-
-      for (const n of list) {
-        if (n?.children && isInArray(n.children, child?.key)) {
-          n.children = n.children.filter((n) => n.key != child.key);
+      for (const [idx, n] of list.entries()) {
+        if (n.key == child?.key) {
+          list.splice(idx, 1);
           break;
         } else {
           n?.children && lookup(n.children, node);
@@ -110,6 +100,40 @@ const Utils = {
     let reParam = new RegExp("(?:[?&]|&)" + paramName + "=([^&]+)", "i");
     let match = window.location.search.match(reParam);
     return match && match.length > 1 ? match[1] : null;
+  },
+
+  /**
+   * Get URL
+   *
+   * @param {INode} node
+   * @return {string}
+   */
+  getUrl(pathOfNodes: INode[]): string {
+    let nodeNames = pathOfNodes.map((n: INode) => n?.data?.name);
+    return path.join("/", ...nodeNames);
+  },
+
+  /**
+   * It replaces node in list
+   *
+   * @param {[INode]} nodes
+   * @param {INode} node - new node
+   * @return {[INode]}
+   */
+  replace(nodes: INode[], node: INode): INode[] {
+    let lookup = function (list: INode[], child: INode) {
+      for (const [idx, n] of list.entries()) {
+        if (n.key == child?.key) {
+          list.splice(idx, 1, node);
+          break;
+        } else {
+          n?.children && lookup(n.children, node);
+        }
+      }
+    };
+
+    lookup(nodes, node);
+    return nodes;
   },
 };
 

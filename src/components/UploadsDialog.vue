@@ -12,7 +12,6 @@
     </template>
 
     <FileUpload
-      name="demo[]"
       :customUpload="true"
       @uploader="uploader"
       @upload="onUpload"
@@ -59,6 +58,7 @@ export default {
   mounted() {},
   methods: {
     onUpload() {
+      // TODO
       console.log("finish");
     },
     uploader(event: any) {

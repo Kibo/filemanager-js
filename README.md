@@ -68,11 +68,11 @@ localhost:8080
 
 ## 3. Create API on your backend server
 
-- list( url:string )
-- rename( url:string, name:string )
-- remove( url:string )
-- uploads( url:string, files:array )
-- mkdir (url:string, name:string )
+- list(url:string, parent:INode):INode
+- rename( url:string, node:INode, name:string ):INode
+- remove( url:string, node:INode):INode
+- mkdir (url:string, parent:INode, name:string ):INode
+- uploads( url:string, parent:INode, files:array ):INode
 
 _Do you have a NodeJS project? Hire me! Implementation for filesystem, S3, Dropbox, Cloudinary, Google Drive, ..._
 
@@ -80,9 +80,17 @@ _Do you have a NodeJS project? Hire me! Implementation for filesystem, S3, Dropb
 
 ## 4. Connect the filemanager to your backend API
 
-- mock [API](https://github.com/Kibo/filemanager-js/blob/master/src/api/api.ts)
+-look at [index.ts](https://github.com/Kibo/filemanager-js/blob/master/src/store/index.ts)
 
-You can use prepared [Axios](https://www.npmjs.com/package/axios) and some [Utils](https://github.com/Kibo/filemanager-js/blob/master/src/utils/Utils.ts).
+```
+// Remove this import
+import * as API from "../api/api-mock";
+```
+
+```
+// Uncoment this import for production
+//import * as API from "../api/api-axios";
+```
 
 ---
 

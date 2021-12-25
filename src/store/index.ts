@@ -1,29 +1,84 @@
 import { createStore } from "vuex";
 import { INode } from "../types";
 import Utils from "../utils/Utils";
-import * as API from "../api/api";
+
+// Remove this import
+import * as API from "../api/api-mock";
+
+// Uncoment this import for production
+//import * as API from "../api/api-axios";
+
+const ROOT_NODE_KEY = "root";
 
 export default createStore({
   state: {
     filesystem: [] as INode[],
   },
-  mutations: {},
+  mutations: {
+    updateFs(state, node) {
+      if (node.key == ROOT_NODE_KEY) {
+        state.filesystem = node.children;
+        return;
+      }
+      Utils.replace(state.filesystem, node);
+    },
+    removeNode(state, node) {
+      Utils.removeNode(state.filesystem, node);
+    },
+  },
   actions: {
-    updateFilesystem({ commit, state }, node: INode) {
-      let nodes = API.list(node);
-      node.key == "root" ? (state.filesystem = nodes) : (node.children = nodes);
+    async updateFilesystem({ commit, state }, node: INode) {
+      let url =
+        node.key == ROOT_NODE_KEY
+          ? "/"
+          : Utils.getUrl(Utils.getPath(state.filesystem, node));
+
+      commit("updateFs", await API.list(url, node));
     },
-    rename({ commit, state }, { node, name }: { node: INode; name: string }) {
-      API.rename(node, name);
+    async rename(
+      { commit, state },
+      { node, name }: { node: INode; name: string }
+    ) {
+      commit(
+        "updateFs",
+        await API.rename(
+          Utils.getUrl(Utils.getPath(state.filesystem, node)),
+          node,
+          name
+        )
+      );
     },
-    remove({ commit, state }, node: INode) {
-      API.remove(state.filesystem, node);
+    async remove({ commit, state }, node: INode) {
+      commit(
+        "removeNode",
+        await API.remove(
+          Utils.getUrl(Utils.getPath(state.filesystem, node)),
+          node
+        )
+      );
     },
-    mkdir({ commit, state }, { node, name }: { node: INode; name: string }) {
-      API.mkdir(node, name);
+    async mkdir(
+      { commit, state },
+      { node, name }: { node: INode; name: string }
+    ) {
+      let url =
+        node.key == ROOT_NODE_KEY
+          ? "/"
+          : Utils.getUrl(Utils.getPath(state.filesystem, node));
+
+      commit("updateFs", await API.mkdir(url, node, name));
     },
-    uploads({ commit, state }, { node, files }: { node: INode; files: [any] }) {
-      API.uploads(node, files);
+
+    async uploads(
+      { commit, state },
+      { node, files }: { node: INode; files: [any] }
+    ) {
+      let url =
+        node.key == ROOT_NODE_KEY
+          ? "/"
+          : Utils.getUrl(Utils.getPath(state.filesystem, node));
+
+      commit("updateFs", await API.uploads(url, node, files));
     },
   },
   modules: {},

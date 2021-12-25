@@ -186,22 +186,11 @@ export default {
   watch: {
     selectedNode(node: INode) {
       this.path = node ? Utils.getPath(this.nodes, node) : [];
-      this.url = path.join(
-        "/",
-        ...this.path.map((node: INode) => node?.data?.name)
-      );
+      this.url = Utils.getUrl(this.path);
     },
   },
   mounted() {
-    this.loading = true;
-    try {
-      this.$store.dispatch("updateFilesystem", this.getFakeRootNode());
-    } catch (err) {
-      this.sendError(err);
-      return;
-    } finally {
-      this.loading = false;
-    }
+    this.onExpand(this.getFakeRootNode());
   },
   methods: {
     selectNode(node: INode) {
@@ -226,10 +215,10 @@ export default {
       this.selectNode(node);
       this.isRenameDialogVisible = true;
     },
-    doRename(name: string) {
+    async doRename(name: string) {
       this.isRenameDialogVisible = false;
       try {
-        this.$store.dispatch("rename", { node: this.selectedNode, name });
+        await this.$store.dispatch("rename", { node: this.selectedNode, name });
       } catch (err) {
         this.sendError(err);
         return;
@@ -240,10 +229,10 @@ export default {
       this.selectNode(node);
       this.isRemoveDialogVisible = true;
     },
-    doRemove() {
+    async doRemove() {
       this.isRemoveDialogVisible = false;
       try {
-        this.$store.dispatch("remove", this.selectedNode);
+        await this.$store.dispatch("remove", this.selectedNode);
       } catch (err) {
         this.sendError(err);
         return;
@@ -258,17 +247,18 @@ export default {
         this.$toast.add({
           severity: "error",
           summary: "Error Message",
-          detail: "Selected node is not type of 'Folder'.",
+          detail:
+            "Selected node is not type of 'Folder'. Please, select folder for uploads.",
           life: 3000,
         });
         return;
       }
       this.isUploadsDialogVisible = true;
     },
-    doUploads(files: any) {
+    async doUploads(files: any) {
       this.isUploadsDialogVisible = false;
       try {
-        this.$store.dispatch("uploads", {
+        await this.$store.dispatch("uploads", {
           node: this.selectedNode || this.getFakeRootNode(),
           files,
         });
@@ -285,17 +275,18 @@ export default {
         this.$toast.add({
           severity: "error",
           summary: "Error Message",
-          detail: "Selected node is not type of 'Folder'.",
+          detail:
+            "Selected node is not type of 'Folder'. Please, select folder for uploads.",
           life: 3000,
         });
         return;
       }
       this.isDirectoryDialogVisible = true;
     },
-    doNewDirectory(name: string) {
+    async doNewDirectory(name: string) {
       this.isDirectoryDialogVisible = false;
       try {
-        this.$store.dispatch("mkdir", {
+        await this.$store.dispatch("mkdir", {
           node: this.selectedNode || this.getFakeRootNode(),
           name,
         });
@@ -307,7 +298,7 @@ export default {
     async onExpand(node: INode) {
       this.loading = true;
       try {
-        this.$store.dispatch("updateFilesystem", node);
+        await this.$store.dispatch("updateFilesystem", node);
       } catch (err) {
         this.sendError(err);
         return;

@@ -75,26 +75,91 @@ describe("removeNode(nodes, node)", () => {
   it("it removes node from nodes", () => {
     let nodeKey, node;
 
+    const ROOT = JSON.parse(JSON.stringify(filesystem.root));
+
     nodeKey = "0-1-1";
-    node = Utils.findNodeByKey(filesystem.root, nodeKey);
+    node = Utils.findNodeByKey(ROOT, nodeKey);
     expect(node?.key).toBe(nodeKey);
-    Utils.removeNode(filesystem.root, node);
-    node = Utils.findNodeByKey(filesystem.root, nodeKey);
+    Utils.removeNode(ROOT, node);
+    node = Utils.findNodeByKey(ROOT, nodeKey);
     expect(node).toBeUndefined();
 
     nodeKey = "3-1-0";
-    node = Utils.findNodeByKey(filesystem.root, nodeKey);
+    node = Utils.findNodeByKey(ROOT, nodeKey);
     expect(node?.key).toBe(nodeKey);
-    Utils.removeNode(filesystem.root, node);
-    node = Utils.findNodeByKey(filesystem.root, nodeKey);
+    Utils.removeNode(ROOT, node);
+    node = Utils.findNodeByKey(ROOT, nodeKey);
     expect(node).toBeUndefined();
 
     nodeKey = "2";
-    node = Utils.findNodeByKey(filesystem.root, nodeKey);
+    node = Utils.findNodeByKey(ROOT, nodeKey);
     expect(node?.key).toBe(nodeKey);
-    Utils.removeNode(filesystem.root, node);
-    node = Utils.findNodeByKey(filesystem.root, nodeKey);
+    Utils.removeNode(ROOT, node);
+    node = Utils.findNodeByKey(ROOT, nodeKey);
     expect(node).toBeUndefined();
+  });
+});
+
+describe("getURL(pathOfNodes)", () => {
+  it("it returns URL", () => {
+    let key, node, pathOfNodes;
+
+    key = "1";
+    node = Utils.findNodeByKey(filesystem.root, key);
+    pathOfNodes = Utils.getPath(filesystem.root, node);
+    expect(Utils.getUrl(pathOfNodes)).toEqual("/Documents2");
+
+    key = "0-1-1";
+    node = Utils.findNodeByKey(filesystem.root, key);
+    pathOfNodes = Utils.getPath(filesystem.root, node);
+    expect(Utils.getUrl(pathOfNodes)).toEqual("/Documents/Home/pic1.jpg");
+
+    key = "3-1-0-0";
+    node = Utils.findNodeByKey(filesystem.root, key);
+    pathOfNodes = Utils.getPath(filesystem.root, node);
+    expect(Utils.getUrl(pathOfNodes)).toEqual("/Testa/Pesta/Kesta/pic1.jpg");
+  });
+});
+
+describe("replace(nodes, node)", () => {
+  it("it replaces node in list", () => {
+    const ROOT = JSON.parse(JSON.stringify(filesystem.root));
+    let key, node, n;
+
+    node = {
+      key: "1",
+      data: {
+        name: "Documents2-updated",
+        size: "100kb",
+        type: "Folder",
+      },
+      leaf: false,
+      children: [],
+    };
+
+    n = Utils.findNodeByKey(ROOT, node.key);
+    expect(n.data.name).toEqual("Documents2");
+    Utils.replace(ROOT, node);
+    expect(Utils.findNodeByKey(ROOT, node.key).data.name).toEqual(
+      node.data.name
+    );
+
+    node = {
+      key: "3-1-0-0",
+      data: {
+        name: "pic100.jpg",
+        size: "20kb",
+        type: "Image",
+      },
+      leaf: true,
+    };
+
+    n = Utils.findNodeByKey(ROOT, node.key);
+    expect(n.data.name).toEqual("pic1.jpg");
+    Utils.replace(ROOT, node);
+    expect(Utils.findNodeByKey(ROOT, node.key).data.name).toEqual(
+      node.data.name
+    );
   });
 });
 
