@@ -80,7 +80,7 @@ _Do you have a NodeJS project? Hire me! Implementation for filesystem, S3, Dropb
 
 ## 4. Connect the filemanager to your backend API
 
--look at [index.ts](https://github.com/Kibo/filemanager-js/blob/master/src/store/index.ts)
+- look at [index.ts](https://github.com/Kibo/filemanager-js/blob/master/src/store/index.ts)
 
 ```
 // Remove this import
