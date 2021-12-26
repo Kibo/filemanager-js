@@ -3,7 +3,7 @@
     <template #start>
       <Breadcrumb
         :path="path"
-        @onSelect="onNodeSelect"
+        @onSelect="onBreadcrumbSelect"
         @onCollapse="onCollapseAll"
       />
     </template>
@@ -20,7 +20,7 @@
   </Toolbar>
 
   <TreeTable
-    :value="nodes"
+    :value="viewedDirectory"
     class="p-treetable-sm"
     sortMode="single"
     selectionMode="single"
@@ -176,6 +176,7 @@ export default {
       isUploadsDialogVisible: false,
       isQuillImageDialogVisible: false,
       isQuillLinkDialogVisible: false,
+      viewedDirectory: undefined,
     };
   },
   computed: {
@@ -205,10 +206,14 @@ export default {
     onNodeSelect(node: INode) {
       this.selectNode(node);
     },
+    onBreadcrumbSelect(node: INode) {
+      this.onExpand(node);
+    },
     onCollapseAll() {
       this.selectedNode = undefined;
       this.selectedKey = undefined;
       this.expandedKeys = {};
+      this.onExpand(this.getFakeRootNode());
     },
     onRename(key: string) {
       let node = Utils.findNodeByKey(this.nodes, key);
@@ -305,12 +310,13 @@ export default {
       } finally {
         this.loading = false;
       }
+
+      node.key != "root" && this.selectNode(node);
+      this.viewedDirectory = node.children;
     },
 
     /*
-     * Select URL
-     *
-     * @return {string} url of selected file
+     * a user clicked at button "Select"
      */
     onSelect() {
       switch (config.EDITOR_NAME) {
