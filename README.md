@@ -193,7 +193,6 @@ tinymce.init({
 - There is method _onSelect()_ in file _/src/components/Filemenager.vue_. It returns an URL of selected file.
 - There are [integration files](https://github.com/Kibo/filemanager-js/tree/master/src/integration) for every editor.
 - The Node (file, directory) has to implement this [INode interface](https://github.com/Kibo/filemanager-js/blob/master/src/types/index.ts).
-- [Mock filesystem](https://github.com/Kibo/filemanager-js/blob/master/src/data/filesystem.json).
 
 ---
 
