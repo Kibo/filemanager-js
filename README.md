@@ -68,7 +68,7 @@ localhost:8080
 
 ## 3. Connect the filemanager to your backend API
 
-- import [/api/api-axios](https://github.com/Kibo/filemanager-js/blob/master/src/api/api-axios.ts) to file [index.ts](https://github.com/Kibo/filemanager-js/blob/master/src/store/index.ts)
+- change _import_ in file [index.ts](https://github.com/Kibo/filemanager-js/blob/master/src/store/index.ts)
 
 ```
 // Remove this import
@@ -83,6 +83,8 @@ import * as API from "../api/api-mock";
 ---
 
 ## 4. Create API on your backend server
+
+There are calls to your backend server in file [/api/api-axios](https://github.com/Kibo/filemanager-js/blob/master/src/api/api-axios.ts). You need to implement these methods on your server.
 
 - list(url:string, parent:INode):INode
 - rename( url:string, node:INode, name:string ):INode
