@@ -80,23 +80,13 @@ import * as API from "../api/api-mock";
 //import * as API from "../api/api-axios";
 ```
 
----
-
-## 4. Create API on your backend server
-
-There are calls to your backend server in file [/api/api-axios](https://github.com/Kibo/filemanager-js/blob/master/src/api/api-axios.ts). You need to implement these methods on your server.
-
-- list(url:string, parent:INode):INode
-- rename( url:string, node:INode, name:string ):INode
-- remove( url:string, node:INode):INode
-- mkdir (url:string, parent:INode, name:string ):INode
-- uploads( url:string, parent:INode, files:array ):INode
+There are calls to your backend server in file [/api/api-axios](https://github.com/Kibo/filemanager-js/blob/master/src/api/api-axios.ts). You need to implement appropriate methods on your server.
 
 _Do you have a NodeJS project? Hire me! Implementation for filesystem, S3, Dropbox, Cloudinary, Google Drive, ..._
 
 ---
 
-## 5. Build the Filemanager
+## 4. Build the Filemanager
 
 ```
 npm run build
@@ -104,7 +94,7 @@ npm run build
 
 ---
 
-## 6. Connect the Filemanager with your preferred editor
+## 5. Connect the Filemanager with your preferred editor
 
 ### CKEditor 4
 
@@ -192,7 +182,7 @@ tinymce.init({
 
 ---
 
-## 7. Congratulation
+## 6. Congratulation
 
 <a href="https://www.buymeacoffee.com/Kibo" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" alt="Buy Me A Coffee" style="height: 41px !important;width: 174px !important;box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;-webkit-box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;" ></a>
 

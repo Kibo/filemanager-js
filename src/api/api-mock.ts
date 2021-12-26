@@ -3,7 +3,7 @@ import filesystem from "../data/filesystem.json";
 import Utils from "../utils/Utils";
 import axios from "axios";
 const { v4: uuidv4 } = require("uuid");
-const branches: any = filesystem;
+let branches: any = filesystem;
 
 // #########################
 // ## Mock backend API    ##
@@ -20,7 +20,10 @@ const branches: any = filesystem;
  * @return {INode} - updated parent
  */
 export async function list(url: string, parent: INode): Promise<INode> {
-  parent.children = branches[parent.key];
+  console.log(parent);
+  if (parent.children && parent.children.length == 0) {
+    parent.children = branches[parent.key];
+  }
   return parent;
 }
 
@@ -109,10 +112,8 @@ export async function uploads(
     };
   });
 
-  console.log(nodes);
   if (parent.children) {
     parent.children = [...parent.children, ...nodes];
   }
-
   return parent;
 }

@@ -242,7 +242,10 @@ export default {
         this.sendError(err);
         return;
       }
-      this.selectNode(null);
+      // delete last element fomr array
+      this.path.length && (this.path.length = this.path.length - 1);
+
+      this.selectNode(this.path[this.path.length - 1]);
     },
     onUploads() {
       if (
@@ -262,15 +265,18 @@ export default {
     },
     async doUploads(files: any) {
       this.isUploadsDialogVisible = false;
+      let folder = this.selectedNode || this.getFakeRootNode();
       try {
         await this.$store.dispatch("uploads", {
-          node: this.selectedNode || this.getFakeRootNode(),
+          node: folder,
           files,
         });
       } catch (err) {
         this.sendError(err);
         return;
       }
+
+      this.onExpand(folder);
     },
     onNewDirectory() {
       if (
