@@ -68,7 +68,7 @@ localhost:8080
 
 ## 3. Connect the filemanager to your backend API
 
-- change _import_ in file [index.ts](https://github.com/Kibo/filemanager-js/blob/master/src/store/index.ts)
+- change _import_ in the top of file [index.ts](https://github.com/Kibo/filemanager-js/blob/master/src/store/index.ts)
 
 ```
 // Remove this import
