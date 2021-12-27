@@ -139,10 +139,10 @@ import UploadsDialog from "./UploadsDialog.vue";
 
 // editor integration
 import { config } from "../integration/filemanager.config";
-import * as ckeditor from "../integration/ckeditor4";
+import * as ckeditor from "../integration/ckeditor/ckeditor4";
 import QuillLinkDialog from "../integration/quill/QuillLinkDialog.vue";
 import QuillImageDialog from "../integration/quill/QuillImageDialog.vue";
-import * as tinymce from "../integration/tinymce5";
+import * as tinymce from "../integration/tinymce/tinymce5";
 
 export default {
   name: "Filemanager",

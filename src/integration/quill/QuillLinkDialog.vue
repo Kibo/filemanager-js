@@ -48,7 +48,7 @@
 </template>
 
 <script lang="ts">
-import * as quill from "../quill";
+import * as quill from "./quill";
 import { INode } from "../../types";
 import { defineAsyncComponent } from "vue";
 import Button from "primevue/button";

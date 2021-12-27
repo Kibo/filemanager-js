@@ -1,5 +1,5 @@
-import Utils from "../utils/Utils";
-import { INode } from "../types";
+import Utils from "../../utils/Utils";
+import { INode } from "../../types";
 
 /**
  * Select url for CKEditor 4

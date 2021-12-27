@@ -20,7 +20,6 @@ let branches: any = filesystem;
  * @return {INode} - updated parent
  */
 export async function list(url: string, parent: INode): Promise<INode> {
-  console.log(parent);
   if (parent.children && parent.children.length == 0) {
     parent.children = branches[parent.key];
   }
