@@ -109,12 +109,12 @@
   />
   <QuillLinkDialog
     :isVisible="isQuillLinkDialogVisible"
-    :url="url"
+    :url="compoundUrlForEditor"
     @onClose="isQuillLinkDialogVisible = false"
   />
   <QuillImageDialog
     :isVisible="isQuillImageDialogVisible"
-    :url="url"
+    :url="compoundUrlForEditor"
     @onClose="isQuillImageDialogVisible = false"
   />
   <Toast position="top-center" />
@@ -182,6 +182,9 @@ export default {
   computed: {
     nodes() {
       return this.$store.state.filesystem as INode[];
+    },
+    compoundUrlForEditor() {
+      return path.join(config.SELECTED_URL_PREFIX, this.url);
     },
   },
   watch: {
@@ -327,7 +330,7 @@ export default {
     onSelect() {
       switch (config.EDITOR_NAME) {
         case EDITORS.ckeditor4:
-          ckeditor.select(this.url);
+          ckeditor.select(this.compoundUrlForEditor);
           break;
         case EDITORS.quill:
           let filterParam = Utils.getUrlParam("filter") ?? "link";
@@ -336,13 +339,13 @@ export default {
             : (this.isQuillLinkDialogVisible = true);
           break;
         case EDITORS.tinymce5:
-          tinymce.select(this.url);
+          tinymce.select(this.compoundUrlForEditor);
           break;
         default:
           this.$toast.add({
             severity: "success",
             summary: "Selected:",
-            detail: this.url,
+            detail: this.compoundUrlForEditor,
             life: 3000,
           });
       }
