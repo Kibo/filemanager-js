@@ -143,6 +143,9 @@ describe("replace(nodes, node)", () => {
     expect(Utils.findNodeByKey(ROOT, node.key).data.name).toEqual(
       node.data.name
     );
+    expect(
+      Array.isArray(Utils.findNodeByKey(ROOT, node.key).children)
+    ).toBeTruthy();
 
     node = {
       key: "3-1-0-0",
@@ -160,6 +163,9 @@ describe("replace(nodes, node)", () => {
     expect(Utils.findNodeByKey(ROOT, node.key).data.name).toEqual(
       node.data.name
     );
+    expect(
+      Array.isArray(Utils.findNodeByKey(ROOT, node.key).children)
+    ).toBeFalsy();
   });
 });
 

@@ -3,7 +3,7 @@ import { INode } from "../types";
 import Utils from "../utils/Utils";
 
 // Remove this import
-import * as API from "../api/api-axios";
+import * as API from "../api/api-mock";
 
 // Uncoment this import for production
 //import * as API from "../api/api-axios";
@@ -20,6 +20,7 @@ export default createStore({
         state.filesystem = node.children;
         return;
       }
+
       Utils.replace(state.filesystem, node);
     },
     removeNode(state, node) {

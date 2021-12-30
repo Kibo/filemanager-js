@@ -21,7 +21,7 @@ let branches: any = filesystem;
  */
 export async function list(url: string, parent: INode): Promise<INode> {
   if (parent.children && parent.children.length == 0) {
-    parent.children = branches[parent.key];
+    parent.children = branches[parent.key] ? branches[parent.key] : [];
   }
   return parent;
 }

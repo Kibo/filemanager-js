@@ -6,7 +6,7 @@ export const config = {
    * @type {string}
    * @see /types/index.ts
    */
-  EDITOR_NAME: EDITORS.ckeditor4,
+  EDITOR_NAME: EDITORS.unknown,
 
   /**
    * @const
