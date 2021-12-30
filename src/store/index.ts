@@ -3,7 +3,7 @@ import { INode } from "../types";
 import Utils from "../utils/Utils";
 
 // Remove this import
-import * as API from "../api/api-mock";
+import * as API from "../api/api-axios";
 
 // Uncoment this import for production
 //import * as API from "../api/api-axios";
