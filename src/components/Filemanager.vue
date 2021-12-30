@@ -190,9 +190,7 @@ export default {
   watch: {
     selectedNode(node: INode) {
       this.path = node ? Utils.getPath(this.nodes, node) : [];
-
-      let isFolder = node ? node?.data?.type == Utils.TYPE_FOLDER : true;
-      this.url = path.join(Utils.getUrl(this.path), isFolder ? path.sep : "");
+      this.url = path.join(Utils.getUrl(this.path));
     },
   },
   mounted() {

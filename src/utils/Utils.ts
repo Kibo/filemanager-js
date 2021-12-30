@@ -110,7 +110,11 @@ const Utils = {
    */
   getUrl(pathOfNodes: INode[]): string {
     let nodeNames = pathOfNodes.map((n: INode) => n?.data?.name);
-    return path.join("/", ...nodeNames);
+    let isFolder =
+      pathOfNodes.length > 0
+        ? pathOfNodes[pathOfNodes.length - 1].data.type == Utils.TYPE_FOLDER
+        : true;
+    return path.join("/", ...nodeNames, isFolder ? path.sep : "");
   },
 
   /**

@@ -107,7 +107,7 @@ describe("getURL(pathOfNodes)", () => {
     key = "1";
     node = Utils.findNodeByKey(filesystem.root, key);
     pathOfNodes = Utils.getPath(filesystem.root, node);
-    expect(Utils.getUrl(pathOfNodes)).toEqual("/Documents2");
+    expect(Utils.getUrl(pathOfNodes)).toEqual("/Documents2/");
 
     key = "0-1-1";
     node = Utils.findNodeByKey(filesystem.root, key);
