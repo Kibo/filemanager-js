@@ -224,12 +224,15 @@ export default {
       this.isRenameDialogVisible = true;
     },
     async doRename(name: string) {
+      this.loading = true;
       this.isRenameDialogVisible = false;
       try {
         await this.$store.dispatch("rename", { node: this.selectedNode, name });
       } catch (err) {
         this.sendError(err);
         return;
+      } finally {
+        this.loading = false;
       }
     },
     onRemove(key: string) {
@@ -238,14 +241,17 @@ export default {
       this.isRemoveDialogVisible = true;
     },
     async doRemove() {
+      this.loading = true;
       this.isRemoveDialogVisible = false;
       try {
         await this.$store.dispatch("remove", this.selectedNode);
       } catch (err) {
         this.sendError(err);
         return;
+      } finally {
+        this.loading = false;
       }
-      // delete last element fomr array
+      // delete last element forom array
       this.path.length && (this.path.length = this.path.length - 1);
 
       this.selectNode(this.path[this.path.length - 1]);
@@ -267,6 +273,7 @@ export default {
       this.isUploadsDialogVisible = true;
     },
     async doUploads(files: any) {
+      this.loading = true;
       this.isUploadsDialogVisible = false;
       let folder = this.selectedNode || this.getFakeRootNode();
       try {
@@ -277,6 +284,8 @@ export default {
       } catch (err) {
         this.sendError(err);
         return;
+      } finally {
+        this.loading = false;
       }
 
       this.onExpand(folder);
@@ -298,6 +307,7 @@ export default {
       this.isDirectoryDialogVisible = true;
     },
     async doNewDirectory(name: string) {
+      this.loading = true;
       this.isDirectoryDialogVisible = false;
       try {
         await this.$store.dispatch("mkdir", {
@@ -307,6 +317,8 @@ export default {
       } catch (err) {
         this.sendError(err);
         return;
+      } finally {
+        this.loading = false;
       }
     },
     async onExpand(node: INode) {
